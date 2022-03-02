@@ -7,8 +7,14 @@ export class AuthenticateController {
 
         const { email, password } = request.body
 
-        const user = await authenticateService.execute({ email, password });
+        const result = await authenticateService.execute({ email, password });
 
-        return response.json(user)
+        if(result instanceof Error) {
+            return response.status(400).json(result.message); 
+        }
+
+        const { token, refreshToken } = result
+
+        return response.json({ token, refreshToken })
     }
 }
