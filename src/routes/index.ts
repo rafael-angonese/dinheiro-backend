@@ -11,6 +11,6 @@ router.get('/', (_request, response) => {
 })
 
 router.use('/users', authenticated, userRoutes)
-router.use('/authenticate', authRoutes)
+router.use('/auth', authRoutes)
 
 export default router
