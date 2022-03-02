@@ -17,7 +17,22 @@ model User {
   password   String
   role       String
   created_at DateTime @default(now())
-  updatedAt  DateTime @updatedAt 
+  updatedAt  DateTime @updatedAt
+
+  RefreshToken RefreshToken[]
 
   @@map("users")
+}
+
+model RefreshToken {
+  id         String   @id @default(uuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  token      String
+  valid      Boolean
+  expiresAt  DateTime
+  created_at DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("refresh_tokens")
 }
