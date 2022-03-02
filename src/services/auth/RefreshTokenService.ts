@@ -2,6 +2,7 @@ import { RefreshToken } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 import { sign } from "../../providers/token";
 import { CreateRefreshTokenService } from "./CreateRefreshTokenService";
+import { InvalidateRefreshTokenService } from "./InvalidateRefreshTokenService";
 
 type RefreshTokenRequest = {
     refreshToken: string;
@@ -13,6 +14,7 @@ interface RefreshTokenServiceResponse {
 }
 
 const createRefreshToken = new CreateRefreshTokenService()
+const invalidateRefreshTokenService = new InvalidateRefreshTokenService()
 
 const isRefreshTokenValid = (refreshToken: RefreshToken | null): boolean => {
     if (refreshToken && refreshToken.valid && refreshToken.expiresAt >= new Date(Date.now())) {
@@ -32,8 +34,7 @@ export class RefreshTokenService {
 
         if (refreshTokenObject && isRefreshTokenValid(refreshTokenObject)) {
 
-            // TODO
-            // invalid refresh token
+            await invalidateRefreshTokenService.execute(refreshTokenParams.refreshToken)
 
             const user = await prismaClient.user.findUnique({
                 where: {
