@@ -9,7 +9,7 @@ export class RefreshTokenController {
 
         const refreshTokenCookie = request.cookies.refreshToken
 
-        if(!refreshTokenCookie) {
+        if (!refreshTokenCookie) {
             return response.status(401).json({ error: "refreshToken is missing" });
         }
 
