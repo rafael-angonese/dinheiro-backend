@@ -1,10 +1,8 @@
 import { BankAccount } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 import { ShowBankAccountService } from "./show.service";
-import { ShowAccountService } from '../accounts/ShowAccountService'
 
 const showBankAccountService = new ShowBankAccountService();
-const showAccountService = new ShowAccountService()
 
 type IRequestProps = {
     name: string;

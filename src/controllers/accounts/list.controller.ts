@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { ListAccountService } from "../../services/accounts/ListAccountService";
+import { ListAccountService } from "../../services/accounts/list.service";
 
-const listAccountService = new ListAccountService();
+const listService = new ListAccountService();
 
 export class ListAccountController {
     async handle(request: Request, response: Response): Promise<Response> {
 
         const { user_id } = request.auth
 
-        const data = await listAccountService.execute({ user_id })
+        const data = await listService.execute({ user_id })
 
         return response.json(data)
     }

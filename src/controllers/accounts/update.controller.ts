@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { UpdateAccountService } from "../../services/accounts/UpdateAccountService";
+import { UpdateAccountService } from "../../services/accounts/update.service";
 
-const updateAccountService = new UpdateAccountService();
+const updateService = new UpdateAccountService();
 export class UpdateAccountController {
     async handle(request: Request, response: Response): Promise<Response> {
 
@@ -9,7 +9,7 @@ export class UpdateAccountController {
         const { user_id } = request.auth
         const { name, description } = request.body
 
-        const data = await updateAccountService.execute(id, user_id, { name, description });
+        const data = await updateService.execute(id, user_id, { name, description });
 
         return response.json(data)
     }

@@ -1,23 +1,22 @@
 import { Router } from 'express'
-import { CreateAccountController } from '../controllers/accounts/CreateAccountController'
-import { DeleteAccountController } from '../controllers/accounts/DeleteAccountController'
-import { ListAccountController } from '../controllers/accounts/ListAccountController'
-import { ShowAccountController } from '../controllers/accounts/ShowAccountController'
-import { UpdateAccountController } from '../controllers/accounts/UpdateAccountController'
+import { CreateAccountController } from '../controllers/accounts/create.controller'
+import { DeleteAccountController } from '../controllers/accounts/delete.controller'
+import { ListAccountController } from '../controllers/accounts/list.controller'
+import { ShowAccountController } from '../controllers/accounts/show.controller'
+import { UpdateAccountController } from '../controllers/accounts/update.controller'
 
-const createAccountController = new CreateAccountController()
-const listAccountController = new ListAccountController()
-const showAccountController = new ShowAccountController()
-const updateAccountController = new UpdateAccountController()
-const deleteAccountController = new DeleteAccountController()
-
+const createController = new CreateAccountController()
+const listController = new ListAccountController()
+const showController = new ShowAccountController()
+const updateController = new UpdateAccountController()
+const deleteController = new DeleteAccountController()
 
 const router = Router()
 
-router.get('/', listAccountController.handle)
-router.post('/', createAccountController.handle)
-router.get('/:id', showAccountController.handle)
-router.put('/:id', updateAccountController.handle)
-router.delete('/:id', deleteAccountController.handle)
- 
+router.get('/', listController.handle)
+router.post('/', createController.handle)
+router.get('/:id', showController.handle)
+router.put('/:id', updateController.handle)
+router.delete('/:id', deleteController.handle)
+
 export default router

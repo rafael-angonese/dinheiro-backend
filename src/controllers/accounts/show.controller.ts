@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { ShowAccountService } from "../../services/accounts/ShowAccountService";
+import { ShowAccountService } from "../../services/accounts/show.service";
 
-const showAccountService = new ShowAccountService();
+const showService = new ShowAccountService();
 
 export class ShowAccountController {
     async handle(request: Request, response: Response): Promise<Response> {
@@ -9,7 +9,7 @@ export class ShowAccountController {
         const { id } = request.params
         const { user_id } = request.auth
 
-        const user = await showAccountService.execute({ id, user_id })
+        const user = await showService.execute({ id, user_id })
 
         return response.json(user)
     }

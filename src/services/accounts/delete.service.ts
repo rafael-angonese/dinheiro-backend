@@ -1,6 +1,6 @@
 import { Account } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
-import { ShowAccountService } from "./ShowAccountService";
+import { ShowAccountService } from "./show.service";
 
 const showAccountService = new ShowAccountService();
 

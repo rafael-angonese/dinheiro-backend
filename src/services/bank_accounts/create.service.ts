@@ -1,6 +1,6 @@
 import { BankAccount } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
-import { ShowAccountService } from '../accounts/ShowAccountService';
+import { ShowAccountService } from '../accounts/show.service';
 
 
 const showAccountService = new ShowAccountService()
