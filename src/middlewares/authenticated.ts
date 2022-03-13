@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express'
-import { verify } from '../providers/token'
+import { NextFunction, Request, Response } from 'express';
+import { decode, verify } from '../providers/token';
 
 const authenticated = (request: Request, response: Response, next: NextFunction) => {
     const authorization = request.headers.authorization || ''
@@ -11,6 +11,12 @@ const authenticated = (request: Request, response: Response, next: NextFunction)
 
     try {
         verify(token);
+
+        const decodedToken = decode(token);
+
+        if (decodedToken) {
+            request.auth = decodedToken
+        }
 
         return next();
     } catch (err) {
