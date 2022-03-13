@@ -1,4 +1,5 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
+import { IDecodedJwt } from '../@types/jwt/token';
 import authConfig from '../config/auth.config';
 
 interface IPayloadProps {
@@ -20,6 +21,14 @@ export function sign(payload: IPayloadProps): string {
 
 export function verify(token: string) {
     jwt.verify(token, authConfig.jwt.publicKey)
+}
+
+export function decode(token: string) {
+    const decoded = jwt.decode(token)
+
+    if (decoded) {
+        return decoded as IDecodedJwt
+    }
 }
 
 
