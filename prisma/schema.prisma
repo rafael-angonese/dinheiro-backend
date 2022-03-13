@@ -21,7 +21,8 @@ model User {
 
   RefreshToken RefreshToken[]
 
-  Account Account[]
+  Account     Account[]
+  BankAccount BankAccount[]
   @@map("users")
 }
 
@@ -47,5 +48,20 @@ model Account {
   created_at  DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  BankAccount BankAccount[]
   @@map("accounts")
+}
+
+model BankAccount {
+  id         String   @id @default(uuid())
+  name       String
+  balance    Float
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  account    Account  @relation(fields: [account_id], references: [id])
+  account_id String
+  created_at DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("bank_accounts")
 }
