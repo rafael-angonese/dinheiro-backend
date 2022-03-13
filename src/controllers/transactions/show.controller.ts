@@ -1,20 +1,20 @@
 import { Request, Response } from "express";
-import { DeleteBankAccountService } from "../../services/bank_accounts/delete.service";
+import { ShowTransactionService } from "../../services/transactions/show.service";
 
-const deleteService = new DeleteBankAccountService();
+const showService = new ShowTransactionService();
 
-export class DeleteBankAccountController {
+export class ShowTransactionController {
     async handle(request: Request, response: Response): Promise<Response> {
 
         const { id } = request.params
         const { user_id } = request.auth
 
-        const result = await deleteService.execute(id, user_id)
+        const result = await showService.execute({ id, user_id })
 
         if (result instanceof Error) {
             return response.status(400).json(result.message);
         }
 
-        return response.status(200).send("")
+        return response.json(result)
     }
 }

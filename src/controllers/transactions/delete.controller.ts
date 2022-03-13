@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import { DeleteBankAccountService } from "../../services/bank_accounts/delete.service";
+import { DeleteTransactionService } from "../../services/transactions/delete.service";
 
-const deleteService = new DeleteBankAccountService();
+const deleteService = new DeleteTransactionService();
 
-export class DeleteBankAccountController {
+export class DeleteTransactionController {
     async handle(request: Request, response: Response): Promise<Response> {
 
         const { id } = request.params
