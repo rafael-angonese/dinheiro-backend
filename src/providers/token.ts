@@ -1,8 +1,8 @@
-import jwt, { SignOptions } from 'jsonwebtoken'
-import authConfig from '../config/auth.config'
+import jwt, { SignOptions } from 'jsonwebtoken';
+import authConfig from '../config/auth.config';
 
 interface IPayloadProps {
-    id: string;
+    user_id: string;
     role: string;
 }
 
@@ -25,7 +25,7 @@ export function verify(token: string) {
 
 export function generateRefreshToken(userId: string): string {
 
-    const refreshToken = jwt.sign({ id: userId}, authConfig.refreshToken.secret, {
+    const refreshToken = jwt.sign({ user_id: userId }, authConfig.refreshToken.secret, {
         expiresIn: authConfig.refreshToken.duration
     })
 

@@ -52,7 +52,7 @@ export class RefreshTokenService {
                 return new Error("Failed to create refresh token");
             }
 
-            const token = sign({ id: user.id, role: user.role })
+            const token = sign({ user_id: user.id, role: user.role })
 
             return {
                 token,

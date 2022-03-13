@@ -39,7 +39,7 @@ export class AuthenticateService {
             return new Error("User or Password incorrect");
         }
 
-        const token = sign({ id: user.id, role: user.role })
+        const token = sign({ user_id: user.id, role: user.role })
 
         return {
             token,
