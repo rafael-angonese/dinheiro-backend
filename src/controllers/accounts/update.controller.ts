@@ -9,8 +9,12 @@ export class UpdateAccountController {
         const { user_id } = request.auth
         const { name, description } = request.body
 
-        const data = await updateService.execute(id, user_id, { name, description });
+        const result = await updateService.execute(id, user_id, { name, description });
 
-        return response.json(data)
+        if (result instanceof Error) {
+            return response.status(400).json(result.message);
+        }
+
+        return response.json(result)
     }
 }

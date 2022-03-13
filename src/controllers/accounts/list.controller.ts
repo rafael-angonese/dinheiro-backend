@@ -8,8 +8,12 @@ export class ListAccountController {
 
         const { user_id } = request.auth
 
-        const data = await listService.execute({ user_id })
+        const result = await listService.execute({ user_id })
 
-        return response.json(data)
+        if (result instanceof Error) {
+            return response.status(400).json(result.message);
+        }
+
+        return response.json(result)
     }
 }

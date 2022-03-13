@@ -9,8 +9,12 @@ export class ShowAccountController {
         const { id } = request.params
         const { user_id } = request.auth
 
-        const user = await showService.execute({ id, user_id })
+        const result = await showService.execute({ id, user_id })
 
-        return response.json(user)
+        if (result instanceof Error) {
+            return response.status(400).json(result.message);
+        }
+
+        return response.json(result)
     }
 }
