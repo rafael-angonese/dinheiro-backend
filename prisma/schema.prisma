@@ -65,3 +65,13 @@ model BankAccount {
 
   @@map("bank_accounts")
 }
+
+model Category {
+  id         String   @id @default(uuid())
+  name       String
+  type       String
+  created_at DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("categories")
+}
