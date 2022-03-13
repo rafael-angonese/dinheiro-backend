@@ -3,6 +3,7 @@ import { Router } from 'express'
 import authRoutes from './auth.routes'
 import userRoutes from './user.routes'
 import accountRoutes from './account.routes'
+import bankAccountRoutes from './bank_account.routes'
 
 import authenticated from '../middlewares/authenticated'
 
@@ -15,5 +16,6 @@ router.get('/', (_request, response) => {
 router.use('/auth', authRoutes)
 router.use('/users', authenticated, userRoutes)
 router.use('/accounts', authenticated, accountRoutes)
+router.use('/bank_accounts', authenticated, bankAccountRoutes)
 
 export default router
