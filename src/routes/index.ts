@@ -4,6 +4,7 @@ import authRoutes from './auth.routes'
 import userRoutes from './user.routes'
 import accountRoutes from './account.routes'
 import bankAccountRoutes from './bank_account.routes'
+import categoryRoutes from './category.routes'
 
 import authenticated from '../middlewares/authenticated'
 
@@ -17,5 +18,6 @@ router.use('/auth', authRoutes)
 router.use('/users', authenticated, userRoutes)
 router.use('/accounts', authenticated, accountRoutes)
 router.use('/bank_accounts', authenticated, bankAccountRoutes)
+router.use('/categories', authenticated, categoryRoutes)
 
 export default router
