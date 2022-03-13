@@ -23,6 +23,7 @@ model User {
 
   Account     Account[]
   BankAccount BankAccount[]
+  Transaction Transaction[]
   @@map("users")
 }
 
@@ -49,6 +50,7 @@ model Account {
   updatedAt   DateTime @updatedAt
 
   BankAccount BankAccount[]
+  Transaction Transaction[]
   @@map("accounts")
 }
 
@@ -63,6 +65,7 @@ model BankAccount {
   created_at DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  Transaction Transaction[]
   @@map("bank_accounts")
 }
 
@@ -73,5 +76,26 @@ model Category {
   created_at DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  Transaction Transaction[]
   @@map("categories")
+}
+
+model Transaction {
+  id              String      @id @default(uuid())
+  date            DateTime
+  description     String
+  amount          Float
+  type            String
+  category        Category    @relation(fields: [category_id], references: [id])
+  category_id     String
+  user            User        @relation(fields: [user_id], references: [id])
+  user_id         String
+  account         Account     @relation(fields: [account_id], references: [id])
+  account_id      String
+  bankAccount     BankAccount @relation(fields: [bank_account_id], references: [id])
+  bank_account_id String
+  created_at      DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("transactions")
 }
