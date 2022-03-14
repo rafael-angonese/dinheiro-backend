@@ -11,10 +11,6 @@ export class DeleteTransactionController {
 
         const result = await deleteService.execute(id, user_id)
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         return response.status(200).send("")
     }
 }

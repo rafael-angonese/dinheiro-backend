@@ -10,13 +10,9 @@ type IRequestProps = {
 };
 
 export class UpdateBankAccountService {
-    async execute(id: string, user_id: string, params: IRequestProps): Promise<Error | BankAccount> {
+    async execute(id: string, user_id: string, params: IRequestProps): Promise<BankAccount> {
 
         const data = await showBankAccountService.execute({ id, user_id })
-
-        if (!data) {
-            return new Error("Bank Account not found");
-        }
 
         const updated = await prismaClient.bankAccount.update({
             where: {

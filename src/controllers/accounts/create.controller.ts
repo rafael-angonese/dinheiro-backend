@@ -10,10 +10,6 @@ export class CreateAccountController {
 
         const result = await createService.execute({ name, description, user_id });
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         return response.json(result)
     }
 }

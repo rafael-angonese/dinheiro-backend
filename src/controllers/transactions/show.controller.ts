@@ -11,10 +11,6 @@ export class ShowTransactionController {
 
         const result = await showService.execute({ id, user_id })
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         return response.json(result)
     }
 }

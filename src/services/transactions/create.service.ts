@@ -20,25 +20,13 @@ interface IRequest {
 };
 
 export class CreateTransactionService {
-    async execute(params: IRequest): Promise<Error | Transaction> {
+    async execute(params: IRequest): Promise<Transaction> {
 
         const account = await showAccountService.execute({ id: params.account_id, user_id: params.user_id })
 
-        if (!account) {
-            return new Error("Account not found");
-        }
-
         const category = await showCategoryService.execute({ id: params.category_id })
 
-        if (!category) {
-            return new Error("Category not found");
-        }
-
         const bank_account = await showBankAccountService.execute({ id: params.bank_account_id, user_id: params.user_id })
-
-        if (!bank_account) {
-            return new Error("Bank Account not found");
-        }
 
         const data = await prismaClient.transaction.create({
             data: {

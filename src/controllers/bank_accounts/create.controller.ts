@@ -11,10 +11,6 @@ export class CreateBankAccountController {
 
         const result = await createService.execute({ name, balance, user_id, account_id });
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         return response.json(result)
     }
 }

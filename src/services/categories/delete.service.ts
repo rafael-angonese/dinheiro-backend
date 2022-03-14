@@ -5,13 +5,9 @@ import { ShowCategoryService } from "./show.service";
 const showCategoryService = new ShowCategoryService();
 
 export class DeleteCategoryService {
-    async execute(id: string): Promise<Error | Category> {
+    async execute(id: string): Promise<Category> {
 
         const data = await showCategoryService.execute({ id })
-
-        if (!data) {
-            return new Error("Category not found");
-        }
 
         const deleted = await prismaClient.category.delete({
             where: {

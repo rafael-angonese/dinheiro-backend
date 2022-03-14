@@ -16,10 +16,6 @@ export class ListCategoryController {
 
         const result = await listService.execute({ type })
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         return response.json(result)
     }
 }

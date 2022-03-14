@@ -8,7 +8,7 @@ interface IRequest {
 };
 
 export class CreateAccountService {
-    async execute(params: IRequest): Promise<Error | Account> {
+    async execute(params: IRequest): Promise<Account> {
 
         const data = await prismaClient.account.create({
             data: {

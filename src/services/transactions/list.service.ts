@@ -6,7 +6,7 @@ interface IRquestProps {
 }
 
 export class ListTransactionService {
-    async execute({ user_id }: IRquestProps): Promise<Error | Transaction[]> {
+    async execute({ user_id }: IRquestProps): Promise<Transaction[]> {
 
         const data = await prismaClient.transaction.findMany({
             where: {

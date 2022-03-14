@@ -1,5 +1,6 @@
 import { Transaction } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
+import { TransactionNotFoundError } from "../../errors/transactions/TransactionNotFoundError";
 
 interface IRequestProps {
     id: string;
@@ -7,7 +8,7 @@ interface IRequestProps {
 }
 
 export class ShowTransactionService {
-    async execute({ id, user_id }: IRequestProps): Promise<Error | Transaction | null> {
+    async execute({ id, user_id }: IRequestProps): Promise<Transaction> {
 
         const data = await prismaClient.transaction.findFirst({
             where: {
@@ -15,6 +16,10 @@ export class ShowTransactionService {
                 user_id
             }
         })
+
+        if (!data) {
+            throw new TransactionNotFoundError()
+        }
 
         return data
     }

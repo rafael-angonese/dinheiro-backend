@@ -11,10 +11,6 @@ export class CreateTransactionController {
 
         const result = await createService.execute({ date, description, amount, type, category_id, account_id, bank_account_id, user_id });
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         return response.json(result)
     }
 }

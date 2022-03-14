@@ -1,5 +1,7 @@
 import { Account, User } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
+import { AccountNotFoundError } from "../../errors/accounts/AccountNotFoundError";
+import AppError from "../../errors/AppError";
 
 interface IRequestProps {
     id: string;
@@ -7,7 +9,7 @@ interface IRequestProps {
 }
 
 export class ShowAccountService {
-    async execute({ id, user_id }: IRequestProps): Promise<Error | Account | null> {
+    async execute({ id, user_id }: IRequestProps): Promise<Account> {
 
         const data = await prismaClient.account.findFirst({
             where: {
@@ -15,6 +17,10 @@ export class ShowAccountService {
                 user_id
             }
         })
+
+        if (!data) {
+            throw new AccountNotFoundError();
+        }
 
         return data
     }

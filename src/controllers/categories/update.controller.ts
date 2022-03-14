@@ -11,10 +11,6 @@ export class UpdateCategoryController {
 
         const result = await updateService.execute(id, { name, type });
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         return response.json(result)
     }
 }

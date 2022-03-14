@@ -11,10 +11,6 @@ export class UpdateTransactionController {
 
         const result = await updateService.execute(id, user_id, { date, description, amount, type, category_id, bank_account_id });
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         return response.json(result)
     }
 }

@@ -6,7 +6,7 @@ interface IRquestProps {
 }
 
 export class ListCategoryService {
-    async execute({ type }: IRquestProps): Promise<Error | Category[]> {
+    async execute({ type }: IRquestProps): Promise<Category[]> {
 
         const data = await prismaClient.category.findMany({
             where: {

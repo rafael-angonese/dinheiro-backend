@@ -7,7 +7,7 @@ interface IRequest {
 };
 
 export class CreateCategoryService {
-    async execute(params: IRequest): Promise<Error | Category> {
+    async execute(params: IRequest): Promise<Category> {
 
         const data = await prismaClient.category.create({
             data: {

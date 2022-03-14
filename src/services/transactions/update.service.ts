@@ -18,25 +18,13 @@ type IRequestProps = {
 };
 
 export class UpdateTransactionService {
-    async execute(id: string, user_id: string, params: IRequestProps): Promise<Error | Transaction> {
+    async execute(id: string, user_id: string, params: IRequestProps): Promise<Transaction> {
 
         const data = await showTransactionService.execute({ id, user_id })
 
-        if (!data) {
-            return new Error("Transaction not found");
-        }
-
         const category = await showCategoryService.execute({ id: params.category_id })
 
-        if (!category) {
-            return new Error("Category not found");
-        }
-
         const bank_account = await showBankAccountService.execute({ id: params.bank_account_id, user_id: user_id })
-
-        if (!bank_account) {
-            return new Error("Bank Account not found");
-        }
 
         const updated = await prismaClient.transaction.update({
             where: {

@@ -6,7 +6,7 @@ interface IRquestProps {
 }
 
 export class ListBankAccountService {
-    async execute({ user_id }: IRquestProps): Promise<Error | BankAccount[]> {
+    async execute({ user_id }: IRquestProps): Promise<BankAccount[]> {
 
         const data = await prismaClient.bankAccount.findMany({
             where: {

@@ -10,13 +10,9 @@ type IRequestProps = {
 };
 
 export class UpdateCategoryService {
-    async execute(id: string, params: IRequestProps): Promise<Error | Category> {
+    async execute(id: string, params: IRequestProps): Promise<Category> {
 
         const data = await showCategoryService.execute({ id })
-
-        if (!data) {
-            return new Error("Category not found");
-        }
 
         const updated = await prismaClient.category.update({
             where: {
