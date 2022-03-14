@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ListUserService } from "../../services/users/ListUserService";
+import { ListUserService } from "../../services/users/list.service";
 
 const listUserService = new ListUserService();
 

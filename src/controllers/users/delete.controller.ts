@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { DeleteUserService } from "../../services/users/DeleteUserService";
+import { DeleteUserService } from "../../services/users/delete.service";
 
 const deleteUserService = new DeleteUserService();
 

@@ -10,7 +10,7 @@ type UserRequest = {
 };
 
 export class CreateUserService {
-    async execute(userParams: UserRequest): Promise<Error | User> {
+    async execute(userParams: UserRequest): Promise<User> {
 
         const passwordHash = await generateHash(userParams.password);
 

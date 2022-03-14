@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UpdateUserService } from "../../services/users/UpdateUserService";
+import { UpdateUserService } from "../../services/users/update.service";
 
 const updateUserService = new UpdateUserService();
 export class UpdateUserController {

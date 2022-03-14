@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { ShowUserService } from "../../services/users/ShowUserService";
+import { ShowUserService } from "../../services/users/show.service";
 
-const listUserService = new ShowUserService();
+const showService = new ShowUserService();
 
 export class ShowUserController {
     async handle(request: Request, response: Response): Promise<Response> {
 
         const { id } = request.params
 
-        const user = await listUserService.execute(id)
+        const user = await showService.execute(id)
 
         return response.json(user)
     }

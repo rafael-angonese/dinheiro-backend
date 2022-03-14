@@ -3,7 +3,7 @@ import { prismaClient } from "../../database/prismaClient";
 
 
 export class ListUserService {
-    async execute(): Promise<Error | User[]> {
+    async execute(): Promise<User[]> {
 
         const users = await prismaClient.user.findMany()
 

@@ -1,5 +1,8 @@
 import { User } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
+import { ShowUserService } from "./show.service";
+
+const showUserService = new ShowUserService()
 
 type UserRequest = {
     name: string;
@@ -8,7 +11,9 @@ type UserRequest = {
 };
 
 export class UpdateUserService {
-    async execute(id: string, userParams: UserRequest): Promise<Error | User> {
+    async execute(id: string, userParams: UserRequest): Promise<User> {
+
+        const data = await showUserService.execute(id)
 
         const updatedUser = await prismaClient.user.update({
             where: {
