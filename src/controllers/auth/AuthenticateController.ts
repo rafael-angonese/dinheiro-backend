@@ -10,10 +10,6 @@ export class AuthenticateController {
 
         const result = await authenticateService.execute({ email, password });
 
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
-
         const { token, refreshToken } = result
 
         const cookieOptions = {

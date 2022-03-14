@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import authConfig from "../../config/auth.config";
+import { JWTTokenMissingError } from "../../errors/auth/JWTTokenMissingError";
 import { RefreshTokenService } from "../../services/auth/RefreshTokenService";
 
 const refreshTokenService = new RefreshTokenService();
@@ -10,7 +11,7 @@ export class RefreshTokenController {
         const refreshTokenCookie = request.cookies.refreshToken
 
         if (!refreshTokenCookie) {
-            return response.status(401).json({ error: "refreshToken is missing" });
+            throw new JWTTokenMissingError()
         }
 
         const result = await refreshTokenService.execute({ refreshToken: refreshTokenCookie });

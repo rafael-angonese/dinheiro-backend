@@ -4,7 +4,7 @@ import { prismaClient } from "../../database/prismaClient";
 import { generateRefreshToken } from "../../providers/token";
 
 export class CreateRefreshTokenService {
-    async execute(userId: string): Promise<Error | RefreshToken> {
+    async execute(userId: string): Promise<RefreshToken> {
 
         const token = generateRefreshToken(userId)
 

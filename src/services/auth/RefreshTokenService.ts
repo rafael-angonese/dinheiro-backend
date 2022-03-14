@@ -1,5 +1,8 @@
 import { RefreshToken } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
+import { JWTInvalidTokenError } from "../../errors/auth/JWTInvalidTokenError";
+import { RefreshTokenNotFoundError } from "../../errors/auth/RefreshTokenNotFoundError";
+import { UserNotFoundError } from "../../errors/users/UserNotFoundError";
 import { sign } from "../../providers/token";
 import { CreateRefreshTokenService } from "./CreateRefreshTokenService";
 import { InvalidateRefreshTokenService } from "./InvalidateRefreshTokenService";
@@ -24,7 +27,7 @@ const isRefreshTokenValid = (refreshToken: RefreshToken | null): boolean => {
 }
 
 export class RefreshTokenService {
-    async execute(refreshTokenParams: RefreshTokenRequest): Promise<Error | RefreshTokenServiceResponse> {
+    async execute(refreshTokenParams: RefreshTokenRequest): Promise<RefreshTokenServiceResponse> {
 
         const refreshTokenObject = await prismaClient.refreshToken.findFirst({
             where: {
@@ -32,33 +35,33 @@ export class RefreshTokenService {
             }
         })
 
-        if (refreshTokenObject && isRefreshTokenValid(refreshTokenObject)) {
-
-            await invalidateRefreshTokenService.execute(refreshTokenParams.refreshToken)
-
-            const user = await prismaClient.user.findUnique({
-                where: {
-                    id: refreshTokenObject.userId
-                }
-            })
-
-            if (!user) {
-                return new Error("User not found");
-            }
-
-            const refreshToken = await createRefreshToken.execute(user.id)
-
-            if (refreshToken instanceof Error) {
-                return new Error("Failed to create refresh token");
-            }
-
-            const token = sign({ user_id: user.id, role: user.role })
-
-            return {
-                token,
-                refreshToken: refreshToken.token
-            };
+        if (!refreshTokenObject) {
+            throw new RefreshTokenNotFoundError()
         }
-        return new Error("Failed to create refresh token");
+
+        if (!isRefreshTokenValid(refreshTokenObject)) {
+            throw new JWTInvalidTokenError()
+        }
+
+        await invalidateRefreshTokenService.execute(refreshTokenParams.refreshToken)
+
+        const user = await prismaClient.user.findUnique({
+            where: {
+                id: refreshTokenObject.userId
+            }
+        })
+
+        if (!user) {
+            throw new UserNotFoundError()
+        }
+
+        const refreshToken = await createRefreshToken.execute(user.id)
+
+        const token = sign({ user_id: user.id, role: user.role })
+
+        return {
+            token,
+            refreshToken: refreshToken.token
+        };
     }
 }

@@ -1,6 +1,6 @@
 import { User } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
-import { UserNotFound } from "../../errors/users/UserNotFoundError";
+import { UserNotFoundError } from "../../errors/users/UserNotFoundError";
 
 
 export class ShowUserService {
@@ -13,7 +13,7 @@ export class ShowUserService {
         })
 
         if (!user) {
-            throw new UserNotFound();
+            throw new UserNotFoundError();
         }
 
         return user

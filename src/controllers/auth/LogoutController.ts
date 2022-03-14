@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { JWTTokenMissingError } from "../../errors/auth/JWTTokenMissingError";
 import { LogoutService } from "../../services/auth/LogoutService";
 
 const logoutService = new LogoutService();
@@ -10,14 +11,10 @@ export class LogoutController {
         const refreshTokenCookie = request.cookies.refreshToken
 
         if (!refreshTokenCookie) {
-            return response.status(401).json({ error: "refreshToken is missing" });
+            throw new JWTTokenMissingError()
         }
 
         const result = await logoutService.execute({ refreshToken: refreshTokenCookie, allDevices });
-
-        if (result instanceof Error) {
-            return response.status(400).json(result.message);
-        }
 
         response.cookie('refreshToken', '')
 
