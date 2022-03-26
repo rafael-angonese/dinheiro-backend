@@ -14,6 +14,9 @@ export class ShowBankAccountService {
             where: {
                 id,
                 user_id
+            },
+            include: {
+                account: true
             }
         })
 
