@@ -11,6 +11,20 @@ export class ListTransactionService {
         const data = await prismaClient.transaction.findMany({
             where: {
                 user_id
+            },
+            include: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                },
+                bankAccount: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                }
             }
         })
 
