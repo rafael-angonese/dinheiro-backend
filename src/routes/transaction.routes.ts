@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { multerUploadS3 } from '../config/multer.config'
 import { CreateTransactionController } from '../controllers/transactions/create.controller'
 import { DeleteTransactionController } from '../controllers/transactions/delete.controller'
 import { ListTransactionController } from '../controllers/transactions/list.controller'
@@ -14,7 +15,7 @@ const deleteController = new DeleteTransactionController()
 const router = Router()
 
 router.get('/', listController.handle)
-router.post('/', createController.handle)
+router.post('/', multerUploadS3.array('files'), createController.handle)
 router.get('/:id', showController.handle)
 router.put('/:id', updateController.handle)
 router.delete('/:id', deleteController.handle)
