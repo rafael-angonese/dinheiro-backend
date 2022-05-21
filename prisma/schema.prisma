@@ -98,5 +98,34 @@ model Transaction {
   created_at      DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
+  FileOnTransaction FileOnTransaction[]
   @@map("transactions")
+}
+
+model File {
+  id           String   @id @default(uuid())
+  key          String
+  model        String
+  name         String
+  bucket       String
+  url          String
+  size         Float
+  content_type String
+  created_at   DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("files")
+  FileOnTransaction FileOnTransaction[]
+}
+
+model FileOnTransaction {
+  id             String      @id @default(uuid())
+  file           File        @relation(fields: [file_id], references: [id])
+  file_id        String
+  transaction    Transaction @relation(fields: [transaction_id], references: [id])
+  transaction_id String
+  created_at     DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@map("files_on_transactions")
 }
