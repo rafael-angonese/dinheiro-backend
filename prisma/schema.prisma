@@ -98,7 +98,7 @@ model Transaction {
   created_at      DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 
-  FileOnTransaction FileOnTransaction[]
+  fileOnTransaction FileOnTransaction[]
   @@map("transactions")
 }
 
@@ -115,7 +115,7 @@ model File {
   updatedAt    DateTime @updatedAt
 
   @@map("files")
-  FileOnTransaction FileOnTransaction[]
+  fileOnTransaction FileOnTransaction[]
 }
 
 model FileOnTransaction {
