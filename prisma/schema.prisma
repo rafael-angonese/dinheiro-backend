@@ -107,6 +107,7 @@ model File {
   key          String
   model        String
   name         String
+  original_name String?
   bucket       String
   url          String
   size         Float
@@ -114,8 +115,8 @@ model File {
   created_at   DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  @@map("files")
   fileOnTransaction FileOnTransaction[]
+  @@map("files")
 }
 
 model FileOnTransaction {

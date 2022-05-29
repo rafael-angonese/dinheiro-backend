@@ -41,6 +41,7 @@ export class ListTransactionService {
                 id: true,
                 content_type: true,
                 name: true,
+                original_name: true,
               },
             },
           },
