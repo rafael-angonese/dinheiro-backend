@@ -17,7 +17,7 @@ const router = Router()
 router.get('/', listController.handle)
 router.post('/', multerUploadS3.array('files'), createController.handle)
 router.get('/:id', showController.handle)
-router.put('/:id', updateController.handle)
+router.put('/:id', multerUploadS3.array('files'), updateController.handle)
 router.delete('/:id', deleteController.handle)
 
 export default router
