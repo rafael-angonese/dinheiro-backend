@@ -1,4 +1,4 @@
-import { File } from "../../../prisma/client";
+import { File } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 interface IRequest {

@@ -1,4 +1,4 @@
-import { Category } from "../../../prisma/client";
+import { Category } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 interface IRequest {

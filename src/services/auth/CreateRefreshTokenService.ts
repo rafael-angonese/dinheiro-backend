@@ -1,4 +1,4 @@
-import { RefreshToken } from "../../../prisma/client";
+import { RefreshToken } from "@prisma/client";
 import authConfig from "../../config/auth.config";
 import { prismaClient } from "../../database/prismaClient";
 import { generateRefreshToken } from "../../providers/token";

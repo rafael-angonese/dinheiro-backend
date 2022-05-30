@@ -1,4 +1,4 @@
-import { User } from "../../../prisma/client";
+import { User } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 import { generateHash } from "../../providers/crypto";
 

@@ -1,4 +1,4 @@
-import { Account } from "../../../prisma/client";
+import { Account } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 import { AccountNotFoundError } from "../../errors/accounts/AccountNotFoundError";
 

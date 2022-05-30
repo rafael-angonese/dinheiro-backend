@@ -1,4 +1,4 @@
-import { User } from "../../../prisma/client";
+import { User } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 export class DeleteUserService {

@@ -1,4 +1,4 @@
-import { BankAccount } from "../../../prisma/client";
+import { BankAccount } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 import { BankAccountNotFoundError } from "../../errors/bank_accounts/BankAccountNotFoundError";
 

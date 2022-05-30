@@ -1,4 +1,4 @@
-import { RefreshToken } from "../../../prisma/client";
+import { RefreshToken } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 import { JWTInvalidTokenError } from "../../errors/auth/JWTInvalidTokenError";
 import { RefreshTokenNotFoundError } from "../../errors/auth/RefreshTokenNotFoundError";

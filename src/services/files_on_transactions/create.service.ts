@@ -1,4 +1,4 @@
-import { FileOnTransaction } from "../../../prisma/client";
+import { FileOnTransaction } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 interface IRequest {

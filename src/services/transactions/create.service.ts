@@ -1,4 +1,4 @@
-import { Transaction } from "../../../prisma/client";
+import { Transaction } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 import { ShowAccountService } from "../accounts/show.service";
 import { ShowBankAccountService } from "../bank_accounts/show.service";
