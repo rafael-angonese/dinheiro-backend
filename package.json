@@ -10,7 +10,7 @@
     "migrate": "prisma migrate dev",
     "generate": "prisma generate",
     "migrate": "prisma migrate deploy",
-    "deploy": "yarn generate && yarn migrate && yarn build"
+    "deploy": "yarn migrate && yarn generate && yarn build"
   },
   "dependencies": {
     "@prisma/client": "3.10.0",
