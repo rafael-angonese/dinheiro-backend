@@ -1,14 +1,13 @@
-import { User } from "@prisma/client";
+import { User } from "../../../prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 export class DeleteUserService {
-    async execute(id: string): Promise<User> {
-
-        const deletedUser = await prismaClient.user.delete({
-            where: {
-                id: id
-            }
-        })
-        return deletedUser;
-    }
+  async execute(id: string): Promise<User> {
+    const deletedUser = await prismaClient.user.delete({
+      where: {
+        id: id,
+      },
+    });
+    return deletedUser;
+  }
 }

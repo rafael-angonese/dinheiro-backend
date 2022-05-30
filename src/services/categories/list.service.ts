@@ -1,19 +1,18 @@
-import { Category } from "@prisma/client";
+import { Category } from "../../../prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 interface IRquestProps {
-    type: string
+  type: string;
 }
 
 export class ListCategoryService {
-    async execute({ type }: IRquestProps): Promise<Category[]> {
+  async execute({ type }: IRquestProps): Promise<Category[]> {
+    const data = await prismaClient.category.findMany({
+      where: {
+        type,
+      },
+    });
 
-        const data = await prismaClient.category.findMany({
-            where: {
-                type
-            }
-        })
-
-        return data;
-    }
+    return data;
+  }
 }

@@ -1,28 +1,27 @@
-import { User } from "@prisma/client";
+import { User } from "../../../prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 import { ShowUserService } from "./show.service";
 
-const showUserService = new ShowUserService()
+const showUserService = new ShowUserService();
 
 type UserRequest = {
-    name: string;
-    email: string;
-    role: string;
+  name: string;
+  email: string;
+  role: string;
 };
 
 export class UpdateUserService {
-    async execute(id: string, userParams: UserRequest): Promise<User> {
+  async execute(id: string, userParams: UserRequest): Promise<User> {
+    const data = await showUserService.execute(id);
 
-        const data = await showUserService.execute(id)
-
-        const updatedUser = await prismaClient.user.update({
-            where: {
-                id: id
-            },
-            data: {
-                ...userParams,
-            }
-        })
-        return updatedUser;
-    }
+    const updatedUser = await prismaClient.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        ...userParams,
+      },
+    });
+    return updatedUser;
+  }
 }

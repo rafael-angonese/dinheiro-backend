@@ -1,19 +1,18 @@
-import { Account } from "@prisma/client";
+import { Account } from "../../../prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 interface IRquestProps {
-    user_id: string
+  user_id: string;
 }
 
 export class ListAccountService {
-    async execute({ user_id }: IRquestProps): Promise<Account[]> {
+  async execute({ user_id }: IRquestProps): Promise<Account[]> {
+    const data = await prismaClient.account.findMany({
+      where: {
+        user_id,
+      },
+    });
 
-        const data = await prismaClient.account.findMany({
-            where: {
-                user_id
-            }
-        })
-
-        return data;
-    }
+    return data;
+  }
 }

@@ -1,5 +1,5 @@
-import { prismaClient } from "../../database/prismaClient";
 import { File } from "../../../prisma/client";
+import { prismaClient } from "../../database/prismaClient";
 
 interface IRequest {
   key: string;
