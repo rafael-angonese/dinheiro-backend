@@ -4,9 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "tsc --build",
+    "start": "node -r dotenv/config dist/server.js",
     "dev": "ts-node-dev -r dotenv/config --respawn --transpile-only --ignore-watch node_modules --exit-child src/server.ts",
     "migrate": "prisma migrate dev",
-    "generate": "prisma generate"
+    "generate": "prisma generate",
+    "migrate": "prisma migrate deploy",
+    "deploy": "yarn generate && yarn migrate && yarn build"
   },
   "dependencies": {
     "@prisma/client": "3.10.0",
