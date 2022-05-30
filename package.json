@@ -9,8 +9,8 @@
     "dev": "ts-node-dev -r dotenv/config --respawn --transpile-only --ignore-watch node_modules --exit-child src/server.ts",
     "migrate": "prisma migrate dev",
     "generate": "prisma generate",
-    "migrate": "prisma migrate deploy",
-    "deploy": "yarn migrate && yarn generate && yarn build"
+    "migrate-deploy": "prisma migrate deploy",
+    "deploy": "yarn migrate-deploy && yarn generate && yarn build"
   },
   "dependencies": {
     "@prisma/client": "3.10.0",
