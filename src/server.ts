@@ -7,8 +7,15 @@ import AppError from './errors/AppError';
 
 import routes from './routes'
 
+const origin =
+  process.env.NODE_ENV === "production"
+    ? process.env.FRONTEND_URL
+    : 'http://localhost:3000';
+
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: origin,
+  preflightContinue: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 }
 
@@ -22,7 +29,6 @@ app.use(cors())
 app.use(routes)
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
-  response.header("Access-Control-Allow-Origin", "*");
   if (err instanceof AppError) {
     return response.status(err.statusCode).json(err);
   }
