@@ -11,8 +11,8 @@ import authenticated from '../middlewares/authenticated'
 
 const router = Router()
 
-router.get('/private', (_request, response) => {
-    return response.json({ hello: process.env.JWT_PUBLIC_KEY })
+router.get('/', (_request, response) => {
+    return response.json({ hello: 'Welcome to Dentro De Um Critoen!' })
 })
 
 router.use('/auth', authRoutes)
