@@ -22,6 +22,7 @@ app.use(cors())
 app.use(routes)
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
+  response.header("Access-Control-Allow-Origin", "*");
   if (err instanceof AppError) {
     return response.status(err.statusCode).json(err);
   }
