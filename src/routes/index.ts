@@ -15,6 +15,14 @@ router.get('/', (_request, response) => {
     return response.json({ hello: 'Welcome to Dentro De Um Critoen!' })
 })
 
+router.get('/public', (_request, response) => {
+    return response.json({ hello: process.env.JWT_PUBLIC_KEY })
+})
+
+router.get('/private', (_request, response) => {
+    return response.json({ hello: process.env.JWT_PUBLIC_KEY })
+})
+
 router.use('/auth', authRoutes)
 router.use('/users', userRoutes)
 router.use('/accounts', authenticated, accountRoutes)
