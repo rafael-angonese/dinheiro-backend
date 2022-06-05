@@ -8,7 +8,7 @@ import AppError from './errors/AppError';
 import routes from './routes'
 
 const corsOptions = {
-  origin: '*',
+  origin: 'http://localhost:3000/',
   credentials: true,
 }
 
