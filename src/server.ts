@@ -1,21 +1,15 @@
 import express, { NextFunction, Request, Response } from 'express';
 import 'dotenv'
 import 'express-async-errors'
-import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import AppError from './errors/AppError';
 
 import routes from './routes'
 
-const corsOptions = {
-  origin: 'http://localhost:3000',
-}
-
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
 app.use(cors())
 app.use(routes)
 
@@ -26,7 +20,6 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
 
   return response.status(500).json({
     status: 'error',
-    // message: 'Internal server error',
     message: `Internal server error - ${err.message}`,
   });
 });

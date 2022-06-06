@@ -5,19 +5,15 @@ import { LogoutService } from "../../services/auth/LogoutService";
 const logoutService = new LogoutService();
 
 export class LogoutController {
-    async handle(request: Request, response: Response): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { allDevices, refreshToken } = request.body;
 
-        const { allDevices } = request.body
-        const refreshTokenCookie = request.cookies.refreshToken
-
-        if (!refreshTokenCookie) {
-            throw new JWTTokenMissingError()
-        }
-
-        const result = await logoutService.execute({ refreshToken: refreshTokenCookie, allDevices });
-
-        response.cookie('refreshToken', '')
-
-        return response.json({})
+    if (!refreshToken) {
+      throw new JWTTokenMissingError();
     }
+
+    const result = await logoutService.execute({ refreshToken, allDevices });
+
+    return response.json({});
+  }
 }
