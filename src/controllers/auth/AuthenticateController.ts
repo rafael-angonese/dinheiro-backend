@@ -17,7 +17,7 @@ export class AuthenticateController {
             httpOnly: true,
         }
 
-        response.cookie('refreshToken', refreshToken, cookieOptions)
+        // response.cookie('refreshToken', refreshToken, cookieOptions)
 
         return response.json({ token })
     }
