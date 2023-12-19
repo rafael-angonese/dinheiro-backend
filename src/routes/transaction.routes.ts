@@ -1,23 +1,17 @@
-import { Router } from 'express'
-import { multerUploadS3 } from '../config/multer.config'
-import { CreateTransactionController } from '../controllers/transactions/create.controller'
-import { DeleteTransactionController } from '../controllers/transactions/delete.controller'
-import { ListTransactionController } from '../controllers/transactions/list.controller'
-import { ShowTransactionController } from '../controllers/transactions/show.controller'
-import { UpdateTransactionController } from '../controllers/transactions/update.controller'
+import { create } from '@/controllers/transactions/create';
+import { destroy } from '@/controllers/transactions/destroy';
+import { list } from '@/controllers/transactions/list';
+import { show } from '@/controllers/transactions/show';
+import { update } from '@/controllers/transactions/update';
+import { Router } from 'express';
+import { multerUploadS3 } from '../config/multer.config';
 
-const createController = new CreateTransactionController()
-const listController = new ListTransactionController()
-const showController = new ShowTransactionController()
-const updateController = new UpdateTransactionController()
-const deleteController = new DeleteTransactionController()
+const router = Router();
 
-const router = Router()
+router.get('/', list);
+router.post('/', multerUploadS3.array('files'), create);
+router.get('/:id', show);
+router.put('/:id', multerUploadS3.array('files'), update);
+router.delete('/:id', destroy);
 
-router.get('/', listController.handle)
-router.post('/', multerUploadS3.array('files'), createController.handle)
-router.get('/:id', showController.handle)
-router.put('/:id', multerUploadS3.array('files'), updateController.handle)
-router.delete('/:id', deleteController.handle)
-
-export default router
+export default router;

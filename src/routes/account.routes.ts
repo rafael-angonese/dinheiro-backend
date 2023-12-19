@@ -1,22 +1,16 @@
-import { Router } from 'express'
-import { CreateAccountController } from '../controllers/accounts/create.controller'
-import { DeleteAccountController } from '../controllers/accounts/delete.controller'
-import { ListAccountController } from '../controllers/accounts/list.controller'
-import { ShowAccountController } from '../controllers/accounts/show.controller'
-import { UpdateAccountController } from '../controllers/accounts/update.controller'
+import { create } from '@/controllers/accounts/create';
+import { destroy } from '@/controllers/accounts/destroy';
+import { list } from '@/controllers/accounts/list';
+import { show } from '@/controllers/accounts/show';
+import { update } from '@/controllers/accounts/update';
+import { Router } from 'express';
 
-const createController = new CreateAccountController()
-const listController = new ListAccountController()
-const showController = new ShowAccountController()
-const updateController = new UpdateAccountController()
-const deleteController = new DeleteAccountController()
+const router = Router();
 
-const router = Router()
+router.get('/', list);
+router.post('/', create);
+router.get('/:id', show);
+router.put('/:id', update);
+router.delete('/:id', destroy);
 
-router.get('/', listController.handle)
-router.post('/', createController.handle)
-router.get('/:id', showController.handle)
-router.put('/:id', updateController.handle)
-router.delete('/:id', deleteController.handle)
-
-export default router
+export default router;

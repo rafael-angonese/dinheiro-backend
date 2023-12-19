@@ -1,22 +1,16 @@
-import { Router } from 'express'
-import { CreateBankAccountController } from '../controllers/bank_accounts/create.controller'
-import { DeleteBankAccountController } from '../controllers/bank_accounts/delete.controller'
-import { ListBankAccountController } from '../controllers/bank_accounts/list.controller'
-import { ShowBankAccountController } from '../controllers/bank_accounts/show.controller'
-import { UpdateBankAccountController } from '../controllers/bank_accounts/update.controller'
+import { create } from '@/controllers/bank_accounts/create';
+import { destroy } from '@/controllers/bank_accounts/destroy';
+import { list } from '@/controllers/bank_accounts/list';
+import { show } from '@/controllers/bank_accounts/show';
+import { update } from '@/controllers/bank_accounts/update';
+import { Router } from 'express';
 
-const createController = new CreateBankAccountController()
-const listController = new ListBankAccountController()
-const showController = new ShowBankAccountController()
-const updateController = new UpdateBankAccountController()
-const deleteController = new DeleteBankAccountController()
+const router = Router();
 
-const router = Router()
+router.get('/', list);
+router.post('/', create);
+router.get('/:id', show);
+router.put('/:id', update);
+router.delete('/:id', destroy);
 
-router.get('/', listController.handle)
-router.post('/', createController.handle)
-router.get('/:id', showController.handle)
-router.put('/:id', updateController.handle)
-router.delete('/:id', deleteController.handle)
-
-export default router
+export default router;

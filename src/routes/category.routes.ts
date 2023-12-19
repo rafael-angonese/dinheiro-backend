@@ -1,22 +1,16 @@
-import { Router } from 'express'
-import { CreateCategoryController } from '../controllers/categories/create.controller'
-import { DeleteCategoryController } from '../controllers/categories/delete.controller'
-import { ListCategoryController } from '../controllers/categories/list.controller'
-import { ShowCategoryController } from '../controllers/categories/show.controller'
-import { UpdateCategoryController } from '../controllers/categories/update.controller'
+import { create } from '@/controllers/categories/create';
+import { destroy } from '@/controllers/categories/destroy';
+import { list } from '@/controllers/categories/list';
+import { show } from '@/controllers/categories/show';
+import { update } from '@/controllers/categories/update';
+import { Router } from 'express';
 
-const createController = new CreateCategoryController()
-const listController = new ListCategoryController()
-const showController = new ShowCategoryController()
-const updateController = new UpdateCategoryController()
-const deleteController = new DeleteCategoryController()
+const router = Router();
 
-const router = Router()
+router.get('/', list);
+router.post('/', create);
+router.get('/:id', show);
+router.put('/:id', update);
+router.delete('/:id', destroy);
 
-router.get('/', listController.handle)
-router.post('/', createController.handle)
-router.get('/:id', showController.handle)
-router.put('/:id', updateController.handle)
-router.delete('/:id', deleteController.handle)
-
-export default router
+export default router;
