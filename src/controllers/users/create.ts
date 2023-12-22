@@ -1,15 +1,23 @@
-import { Request, Response } from 'express';
-import { CreateUserService } from '../../services/users/create.service';
-
-const createUserService = new CreateUserService();
+import { httpStatusCode } from '@/errors/http-status-code';
+import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
+import { CreateUserService } from '@/services/users/create.service';
+import { NextFunction, Request, Response } from 'express';
 
 export async function create(
   request: Request,
   response: Response,
-): Promise<Response> {
+  next: NextFunction,
+) {
   const { name, email, password, role } = request.body;
 
-  const user = await createUserService.execute({ name, email, password, role });
+  try {
+    const usersRepository = new PrismaUsersRepository();
+    const useCase = new CreateUserService(usersRepository);
 
-  return response.json(user);
+    await useCase.execute({ name, email, password, role });
+
+    return response.status(httpStatusCode.created).send();
+  } catch (error) {
+    next(error);
+  }
 }

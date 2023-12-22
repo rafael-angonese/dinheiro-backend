@@ -1,25 +1,45 @@
-import { User } from "@prisma/client";
-import { prismaClient } from "../../database/prismaClient";
-import { generateHash } from "../../providers/crypto";
+import { UserAlreadyExistsError } from '@/errors/users/UserAlreadyExistsError';
+import { generateHash } from '@/providers/crypto';
+import { UsersRepository } from '@/repositories/users-repository';
+import { User } from '@prisma/client';
 
-type UserRequest = {
+interface CreateUserServiceRequest {
   name: string;
   email: string;
   password: string;
   role: string;
-};
+}
+
+interface CreateUserServiceResponse {
+  user: User;
+}
 
 export class CreateUserService {
-  async execute(userParams: UserRequest): Promise<User> {
-    const passwordHash = await generateHash(userParams.password);
+  constructor(private usersRepository: UsersRepository) {}
 
-    const user = await prismaClient.user.create({
-      data: {
-        ...userParams,
-        password: passwordHash,
-      },
+  async execute({
+    name,
+    email,
+    password,
+  }: CreateUserServiceRequest): Promise<CreateUserServiceResponse> {
+    const userWithSameEmail = await this.usersRepository.findByEmail(email);
+
+    
+    if (userWithSameEmail) {
+      throw new UserAlreadyExistsError();
+    }
+
+    const passwordHash = await generateHash(password);
+
+    const user = await this.usersRepository.create({
+      name,
+      email,
+      password: passwordHash,
+      role: 'admin',
     });
 
-    return user;
+    return {
+      user,
+    };
   }
 }
