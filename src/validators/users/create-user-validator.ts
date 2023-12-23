@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const createUserSchema = z.object({
+export const createUserValidator = z.object({
   name: z.string(),
   role: z.string(),
   email: z.string().email(),

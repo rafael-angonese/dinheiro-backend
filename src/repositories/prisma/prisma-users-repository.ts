@@ -2,7 +2,6 @@ import { Prisma } from '@prisma/client';
 
 import { prisma } from '@/lib/prisma';
 import { UsersRepository } from '../users-repository';
-
 export class PrismaUsersRepository implements UsersRepository {
   async list(query: string, page: number) {
     const users = await prisma.user.findMany({
