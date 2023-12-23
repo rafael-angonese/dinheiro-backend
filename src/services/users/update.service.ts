@@ -1,6 +1,6 @@
-import { User } from "@prisma/client";
-import { prismaClient } from "../../database/prismaClient";
-import { ShowUserService } from "./show.service";
+import { User } from '@prisma/client';
+import { prismaClient } from '../../database/prismaClient';
+import { ShowUserService } from './show-user-service';
 
 const showUserService = new ShowUserService();
 

@@ -1,7 +1,7 @@
 import { create } from '@/controllers/users/create-user-controller';
 import { destroy } from '@/controllers/users/destroy';
 import { list } from '@/controllers/users/list-users-controller';
-import { show } from '@/controllers/users/show';
+import { show } from '@/controllers/users/show-user-controller';
 import { update } from '@/controllers/users/update';
 import { Router } from 'express';
 

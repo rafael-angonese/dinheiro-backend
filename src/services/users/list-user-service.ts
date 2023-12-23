@@ -3,7 +3,7 @@ import { excludeUserPasswordField } from '@/utils/exclude-user-password-field';
 import { User } from '@prisma/client';
 
 interface ListUserServiceRequest {
-  query: string;
+  query?: string;
   page: number;
 }
 
@@ -16,7 +16,7 @@ export class ListUserService {
 
   async execute({
     page,
-    query,
+    query = "",
   }: ListUserServiceRequest): Promise<ListUserServiceResponse> {
     const users = await this.usersRepository.list(query, page);
 

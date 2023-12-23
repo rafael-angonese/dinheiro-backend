@@ -8,6 +8,7 @@ export class PrismaUsersRepository implements UsersRepository {
       where: {
         name: {
           contains: query,
+          mode: 'insensitive',
         },
       },
       take: 20,
