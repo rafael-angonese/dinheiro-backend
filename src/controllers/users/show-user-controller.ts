@@ -18,7 +18,9 @@ export async function show(
       id,
     });
 
-    return response.json(user);
+    return response.json({
+      data: user.user,
+    });
   } catch (error) {
     next(error);
   }

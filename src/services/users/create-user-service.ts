@@ -1,5 +1,5 @@
 import { UserAlreadyExistsError } from '@/errors/users/UserAlreadyExistsError';
-import { generateHash } from '@/providers/crypto';
+import { generateHash } from '@/lib/crypto';
 import { UsersRepository } from '@/repositories/users-repository';
 import { User } from '@prisma/client';
 
@@ -21,10 +21,10 @@ export class CreateUserService {
     name,
     email,
     password,
+    role,
   }: CreateUserServiceRequest): Promise<CreateUserServiceResponse> {
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
-    
     if (userWithSameEmail) {
       throw new UserAlreadyExistsError();
     }
@@ -35,7 +35,7 @@ export class CreateUserService {
       name,
       email,
       password: passwordHash,
-      role: 'admin',
+      role,
     });
 
     return {

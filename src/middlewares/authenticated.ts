@@ -1,28 +1,32 @@
 import { NextFunction, Request, Response } from 'express';
 import { JWTTokenMissingError } from '../errors/auth/JWTTokenMissingError';
-import { decode, verify } from '../providers/token';
+import { decode, verify } from '../lib/jwt';
 
-const authenticated = (request: Request, response: Response, next: NextFunction) => {
-    const authorization = request.headers.authorization || ''
+const authenticated = (
+  request: Request,
+  response: Response,
+  next: NextFunction,
+) => {
+  const authorization = request.headers.authorization || '';
 
-    if (!authorization) {
-        throw new JWTTokenMissingError()
+  if (!authorization) {
+    throw new JWTTokenMissingError();
+  }
+  const token = authorization.replace('Bearer ', '');
+
+  try {
+    verify(token);
+
+    const decodedToken = decode(token);
+
+    if (decodedToken) {
+      request.auth = decodedToken;
     }
-    const token = authorization.replace('Bearer ', '')
 
-    try {
-        verify(token);
+    return next();
+  } catch (err) {
+    return response.status(401).end();
+  }
+};
 
-        const decodedToken = decode(token);
-
-        if (decodedToken) {
-            request.auth = decodedToken
-        }
-
-        return next();
-    } catch (err) {
-        return response.status(401).end();
-    }
-}
-
-export default authenticated
+export default authenticated;

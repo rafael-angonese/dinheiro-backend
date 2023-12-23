@@ -1,4 +1,4 @@
-import { authenticate } from '@/controllers/auth/authenticate';
+import { authenticate } from '@/controllers/auth/authenticate-controller';
 import { logout } from '@/controllers/auth/logout';
 import { refreshToken } from '@/controllers/auth/refreshToken';
 import { Router } from 'express';

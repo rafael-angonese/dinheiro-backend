@@ -1,11 +1,11 @@
-import { RefreshToken } from "@prisma/client";
-import { prismaClient } from "../../database/prismaClient";
-import { JWTInvalidTokenError } from "../../errors/auth/JWTInvalidTokenError";
-import { RefreshTokenNotFoundError } from "../../errors/auth/RefreshTokenNotFoundError";
-import { UserNotFoundError } from "../../errors/users/UserNotFoundError";
-import { sign } from "../../providers/token";
-import { CreateRefreshTokenService } from "./CreateRefreshTokenService";
-import { InvalidateRefreshTokenService } from "./InvalidateRefreshTokenService";
+import { RefreshToken } from '@prisma/client';
+import { prismaClient } from '../../database/prismaClient';
+import { JWTInvalidTokenError } from '../../errors/auth/JWTInvalidTokenError';
+import { RefreshTokenNotFoundError } from '../../errors/auth/RefreshTokenNotFoundError';
+import { UserNotFoundError } from '../../errors/users/UserNotFoundError';
+import { sign } from '../../lib/jwt';
+import { CreateRefreshTokenService } from './create-refresh-token-service';
+import { InvalidateRefreshTokenService } from './InvalidateRefreshTokenService';
 
 type RefreshTokenRequest = {
   refreshToken: string;
@@ -32,7 +32,7 @@ const isRefreshTokenValid = (refreshToken: RefreshToken | null): boolean => {
 
 export class RefreshTokenService {
   async execute(
-    refreshTokenParams: RefreshTokenRequest
+    refreshTokenParams: RefreshTokenRequest,
   ): Promise<RefreshTokenServiceResponse> {
     const refreshTokenObject = await prismaClient.refreshToken.findFirst({
       where: {
@@ -49,7 +49,7 @@ export class RefreshTokenService {
     }
 
     await invalidateRefreshTokenService.execute(
-      refreshTokenParams.refreshToken
+      refreshTokenParams.refreshToken,
     );
 
     const user = await prismaClient.user.findUnique({
