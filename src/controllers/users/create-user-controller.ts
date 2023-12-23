@@ -1,6 +1,6 @@
 import { httpStatusCode } from '@/errors/http-status-code';
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
-import { CreateUserService } from '@/services/users/create.service';
+import { CreateUserService } from '@/services/users/create-user-service';
 import { createUserValidator } from '@/validators/users/create-user-validator';
 import { NextFunction, Request, Response } from 'express';
 
