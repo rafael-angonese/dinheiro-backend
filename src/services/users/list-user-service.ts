@@ -1,5 +1,4 @@
 import { UsersRepository } from '@/repositories/users-repository';
-import { excludeUserPasswordField } from '@/utils/exclude-user-password-field';
 import { User } from '@prisma/client';
 
 interface ListUserServiceRequest {
@@ -8,7 +7,7 @@ interface ListUserServiceRequest {
 }
 
 interface ListUserServiceResponse {
-  users: Omit<User, 'password'>[];
+  users: User[];
 }
 
 export class ListUserService {
@@ -16,16 +15,12 @@ export class ListUserService {
 
   async execute({
     page,
-    query = "",
+    query = '',
   }: ListUserServiceRequest): Promise<ListUserServiceResponse> {
     const users = await this.usersRepository.list(query, page);
 
-    const usersWithoutPassword = users.map((user) =>
-      excludeUserPasswordField(user),
-    );
-
     return {
-      users: usersWithoutPassword,
+      users: users,
     };
   }
 }

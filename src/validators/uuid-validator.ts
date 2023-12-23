@@ -1,5 +1,5 @@
 import { z } from 'zod';
 
-export const showUserValidator = z.object({
+export const uuidValidator = z.object({
   id: z.string().uuid(),
 });

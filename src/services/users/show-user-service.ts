@@ -1,5 +1,4 @@
 import { UsersRepository } from '@/repositories/users-repository';
-import { excludeUserPasswordField } from '@/utils/exclude-user-password-field';
 import { User } from '@prisma/client';
 import { UserNotFoundError } from '../../errors/users/UserNotFoundError';
 
@@ -8,7 +7,7 @@ interface ShowUserServiceRequest {
 }
 
 interface ShowUserServiceResponse {
-  user: Omit<User, 'password'>;
+  user: User;
 }
 
 export class ShowUserService {
@@ -23,10 +22,8 @@ export class ShowUserService {
       throw new UserNotFoundError();
     }
 
-    const newUser = excludeUserPasswordField(user);
-
     return {
-      user: newUser,
+      user: user,
     };
   }
 }

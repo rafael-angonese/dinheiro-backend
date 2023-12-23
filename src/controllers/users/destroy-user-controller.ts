@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-import { DeleteUserService } from '@/services/users/destroy-user-service';
-import { showUserValidator } from '@/validators/users/show-user-validator';
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
+import { DeleteUserService } from '@/services/users/destroy-user-service';
+import { uuidValidator } from '@/validators/uuid-validator';
+import { NextFunction, Request, Response } from 'express';
 
 export async function destroy(
   request: Request,
@@ -9,7 +9,7 @@ export async function destroy(
   next: NextFunction,
 ) {
   try {
-    const { id } = showUserValidator.parse(request.params);
+    const { id } = uuidValidator.parse(request.params);
 
     const usersRepository = new PrismaUsersRepository();
     const useCase = new DeleteUserService(usersRepository);
