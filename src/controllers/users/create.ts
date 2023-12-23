@@ -1,6 +1,7 @@
 import { httpStatusCode } from '@/errors/http-status-code';
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
 import { CreateUserService } from '@/services/users/create.service';
+import { createUserSchema } from '@/validators/users/create';
 import { NextFunction, Request, Response } from 'express';
 
 export async function create(
@@ -8,9 +9,11 @@ export async function create(
   response: Response,
   next: NextFunction,
 ) {
-  const { name, email, password, role } = request.body;
-
   try {
+    const { name, email, password, role } = createUserSchema.parse(
+      request.body,
+    );
+
     const usersRepository = new PrismaUsersRepository();
     const useCase = new CreateUserService(usersRepository);
 
