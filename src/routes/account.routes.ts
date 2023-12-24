@@ -1,4 +1,4 @@
-import { create } from '@/controllers/accounts/create';
+import { create } from '@/controllers/accounts/create-account-controller';
 import { destroy } from '@/controllers/accounts/destroy';
 import { list } from '@/controllers/accounts/list';
 import { show } from '@/controllers/accounts/show';
