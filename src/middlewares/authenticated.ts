@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { JWTTokenMissingError } from '../errors/auth/JWTTokenMissingError';
-import { decode, verify } from '../lib/jwt';
+import { decodeJwt, verifyJwt } from '@/lib/jwt';
 
 const authenticated = (
   request: Request,
@@ -15,9 +15,9 @@ const authenticated = (
   const token = authorization.replace('Bearer ', '');
 
   try {
-    verify(token);
+    verifyJwt(token);
 
-    const decodedToken = decode(token);
+    const decodedToken = decodeJwt(token);
 
     if (decodedToken) {
       request.auth = decodedToken;

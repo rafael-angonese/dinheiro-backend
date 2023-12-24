@@ -1,8 +1,8 @@
-import { JwtPayload } from "jsonwebtoken";
+import { JwtPayload } from 'jsonwebtoken';
 
 export interface IDecodedJwt extends JwtPayload {
-    user_id: string;
-    role: string;
-    iat: number;
-    exp: number;
+  user_id: string;
+  role: string;
+  iat: number;
+  exp: number;
 }

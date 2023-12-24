@@ -16,7 +16,7 @@ router.get('/', (_request, response) => {
 });
 
 router.use('/auth', authRoutes);
-router.use('/users', userRoutes);
+router.use('/users', authenticated, userRoutes);
 router.use('/accounts', authenticated, accountRoutes);
 router.use('/bank-accounts', authenticated, bankAccountRoutes);
 router.use('/categories', authenticated, categoryRoutes);

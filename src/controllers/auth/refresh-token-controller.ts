@@ -1,28 +1,29 @@
 import { PrismaRefreshTokensRepository } from '@/repositories/prisma/prisma-refresh-tokens-repository';
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
-import { AuthenticateService } from '@/services/auth/authenticate-service';
-import { authenticateValidator } from '@/validators/auth/authenticate-validator';
+import { RefreshTokenService } from '@/services/auth/refresh-token-service';
+import { refreshTokenValidator } from '@/validators/auth/refresh-token-validator';
 import { NextFunction, Request, Response } from 'express';
 
-export async function authenticate(
+export async function refreshToken(
   request: Request,
   response: Response,
   next: NextFunction,
 ) {
   try {
-    const { email, password } = authenticateValidator.parse(request.body);
+    const { refreshToken: refreshTokenBody } = refreshTokenValidator.parse(
+      request.body,
+    );
 
     const refreshTokensRepository = new PrismaRefreshTokensRepository();
     const usersRepository = new PrismaUsersRepository();
 
-    const useCaseAuthenticate = new AuthenticateService(
+    const useCase = new RefreshTokenService(
       usersRepository,
       refreshTokensRepository,
     );
 
-    const { token, refreshToken } = await useCaseAuthenticate.execute({
-      email,
-      password,
+    const { token, refreshToken } = await useCase.execute({
+      token: refreshTokenBody,
     });
 
     return response.json({
