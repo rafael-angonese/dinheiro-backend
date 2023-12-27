@@ -1,5 +1,5 @@
-import { PrismaAccountRepository } from '@/repositories/prisma/prisma-accounts-repository';
-import { DestroyAccountService } from '@/services/accounts/destroy-account-service';
+import { PrismaBankAccountsRepository } from '@/repositories/prisma/prisma-bank-accounts-repository';
+import { DestroyBankAccountService } from '@/services/bank-accounts/destroy-bank-account-service';
 import { uuidValidator } from '@/validators/uuid-validator';
 import { NextFunction, Request, Response } from 'express';
 
@@ -11,8 +11,8 @@ export async function destroy(
   try {
     const { id } = uuidValidator.parse(request.params);
 
-    const accountsRepository = new PrismaAccountRepository();
-    const useCase = new DestroyAccountService(accountsRepository);
+    const bankAccountsRepository = new PrismaBankAccountsRepository();
+    const useCase = new DestroyBankAccountService(bankAccountsRepository);
 
     await useCase.execute({
       id,

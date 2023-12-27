@@ -1,8 +1,8 @@
-import { create } from '@/controllers/bank_accounts/create';
-import { destroy } from '@/controllers/bank_accounts/destroy';
-import { list } from '@/controllers/bank_accounts/list';
-import { show } from '@/controllers/bank_accounts/show';
-import { update } from '@/controllers/bank_accounts/update';
+import { create } from '@/controllers/bank-accounts/create-bank-account-controller';
+import { destroy } from '@/controllers/bank-accounts/destroy-bank-account-controller';
+import { list } from '@/controllers/bank-accounts/list-bank-accounts-controller';
+import { show } from '@/controllers/bank-accounts/show-bank-account-controller';
+import { update } from '@/controllers/bank-accounts/update-bank-account-service';
 import { Router } from 'express';
 
 const router = Router();

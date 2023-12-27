@@ -1,11 +1,9 @@
 import { Transaction } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
-import { ShowBankAccountService } from "../bank_accounts/show.service";
 import { ShowCategoryService } from "../categories/show.service";
 import { ShowTransactionService } from "./show.service";
 
 const showCategoryService = new ShowCategoryService();
-const showBankAccountService = new ShowBankAccountService();
 const showTransactionService = new ShowTransactionService();
 
 type IRequestProps = {
@@ -28,10 +26,10 @@ export class UpdateTransactionService {
       id: params.category_id,
     });
 
-    const bank_account = await showBankAccountService.execute({
-      id: params.bank_account_id,
-      user_id: user_id,
-    });
+    // const bank_account = await showBankAccountService.execute({
+    //   id: params.bank_account_id,
+    //   user_id: user_id,
+    // });
 
     const updated = await prismaClient.transaction.update({
       where: {

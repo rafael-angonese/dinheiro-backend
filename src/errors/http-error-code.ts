@@ -5,6 +5,7 @@ export const httpErrorCode = {
   notFound: {
     user: 'USER_NOT_FOUND',
     account: 'ACCOUNT_NOT_FOUND',
+    bankAccount: 'BANK_ACCOUNT_NOT_FOUND',
   },
 };
 
