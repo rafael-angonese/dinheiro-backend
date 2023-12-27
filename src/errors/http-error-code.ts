@@ -6,6 +6,7 @@ export const httpErrorCode = {
     user: 'USER_NOT_FOUND',
     account: 'ACCOUNT_NOT_FOUND',
     bankAccount: 'BANK_ACCOUNT_NOT_FOUND',
+    category: 'CATEGORY_ACCOUNT_NOT_FOUND',
   },
 };
 

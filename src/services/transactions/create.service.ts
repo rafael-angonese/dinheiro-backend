@@ -1,8 +1,5 @@
 import { Transaction } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
-import { ShowCategoryService } from "../categories/show.service";
-
-const showCategoryService = new ShowCategoryService();
 
 interface IRequest {
   date: Date;
@@ -22,9 +19,9 @@ export class CreateTransactionService {
     //   user_id: params.user_id,
     // });
 
-    const category = await showCategoryService.execute({
-      id: params.category_id,
-    });
+    // const category = await showCategoryService.execute({
+    //   id: params.category_id,
+    // });
 
     // const bank_account = await showBankAccountService.execute({
     //   id: params.bank_account_id,
