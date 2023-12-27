@@ -1,10 +1,8 @@
 import { Transaction } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
-import { ShowAccountService } from "../accounts/show.service";
 import { ShowBankAccountService } from "../bank_accounts/show.service";
 import { ShowCategoryService } from "../categories/show.service";
 
-const showAccountService = new ShowAccountService();
 const showCategoryService = new ShowCategoryService();
 const showBankAccountService = new ShowBankAccountService();
 
@@ -21,10 +19,10 @@ interface IRequest {
 
 export class CreateTransactionService {
   async execute(params: IRequest): Promise<Transaction> {
-    const account = await showAccountService.execute({
-      id: params.account_id,
-      user_id: params.user_id,
-    });
+    // const account = await showAccountService.execute({
+    //   id: params.account_id,
+    //   user_id: params.user_id,
+    // });
 
     const category = await showCategoryService.execute({
       id: params.category_id,

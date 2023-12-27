@@ -1,5 +1,5 @@
-import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository';
-import { DestroyUserService } from '@/services/users/destroy-user-service';
+import { PrismaAccountRepository } from '@/repositories/prisma/prisma-accounts-repository';
+import { DestroyAccountService } from '@/services/accounts/destroy-account-service';
 import { uuidValidator } from '@/validators/uuid-validator';
 import { NextFunction, Request, Response } from 'express';
 
@@ -11,8 +11,8 @@ export async function destroy(
   try {
     const { id } = uuidValidator.parse(request.params);
 
-    const usersRepository = new PrismaUsersRepository();
-    const useCase = new DestroyUserService(usersRepository);
+    const usersRepository = new PrismaAccountRepository();
+    const useCase = new DestroyAccountService(usersRepository);
 
     await useCase.execute({
       id,

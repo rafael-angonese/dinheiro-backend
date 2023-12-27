@@ -1,8 +1,6 @@
 import { BankAccount } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
-import { ShowAccountService } from "../accounts/show.service";
 
-const showAccountService = new ShowAccountService();
 
 interface IRequest {
   name: string;
@@ -13,10 +11,10 @@ interface IRequest {
 
 export class CreateBankAccountService {
   async execute(params: IRequest): Promise<BankAccount> {
-    const account = await showAccountService.execute({
-      id: params.account_id,
-      user_id: params.user_id,
-    });
+    // const account = await showAccountService.execute({
+    //   id: params.account_id,
+    //   user_id: params.user_id,
+    // });
 
     const data = await prismaClient.bankAccount.create({
       data: {

@@ -10,7 +10,7 @@ interface DestroyUserServiceResponse {
   user: User | null;
 }
 
-export class DeleteUserService {
+export class DestroyUserService {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({

@@ -2,20 +2,20 @@ import { UsersRepository } from '@/repositories/users-repository';
 import { User } from '@prisma/client';
 import { UserNotFoundError } from '../../errors/users/UserNotFoundError';
 
-interface ShowUserServiceRequest {
+interface GetUserServiceRequest {
   id: string;
 }
 
-interface ShowUserServiceResponse {
+interface GetUserServiceResponse {
   user: User;
 }
 
-export class ShowUserService {
+export class GetUserService {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({
     id,
-  }: ShowUserServiceRequest): Promise<ShowUserServiceResponse> {
+  }: GetUserServiceRequest): Promise<GetUserServiceResponse> {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
