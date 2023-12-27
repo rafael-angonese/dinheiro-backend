@@ -30,7 +30,7 @@ const errorHandler = (
       data: {
         message: 'Validation error.',
         statusCode: httpStatusCode.badRequest,
-        error: err.format(),
+        error: err,
       },
     });
   }

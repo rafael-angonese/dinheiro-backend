@@ -1,6 +1,6 @@
 import { PrismaCategoriesRepository } from '@/repositories/prisma/prisma-categories-repository';
 import { ListCategoriesService } from '@/services/categories/list-categories-service';
-import { listUsersValidator } from '@/validators/users/list-users-validator';
+import { listCategoriesValidator } from '@/validators/categories/list-categories-validator';
 import { NextFunction, Request, Response } from 'express';
 
 export async function list(
@@ -9,7 +9,7 @@ export async function list(
   next: NextFunction,
 ) {
   try {
-    const { q, page } = listUsersValidator.parse(request.query);
+    const { q, page } = listCategoriesValidator.parse(request.query);
 
     const categoriesRepository = new PrismaCategoriesRepository();
     const useCase = new ListCategoriesService(categoriesRepository);

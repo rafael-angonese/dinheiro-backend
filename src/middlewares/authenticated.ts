@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { JWTTokenMissingError } from '../errors/auth/JWTTokenMissingError';
+import { JWTTokenMissingError } from '@/errors/auth/JWTTokenMissingError';
 import { decodeJwt, verifyJwt } from '@/lib/jwt';
 
 const authenticated = (

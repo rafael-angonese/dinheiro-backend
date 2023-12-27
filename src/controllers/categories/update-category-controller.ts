@@ -1,6 +1,6 @@
 import { PrismaCategoriesRepository } from '@/repositories/prisma/prisma-categories-repository';
 import { UpdateCategoryService } from '@/services/categories/update-category-service';
-import { updateCategoryValidator } from '@/validators/categories/update-user-validator';
+import { updateCategoryValidator } from '@/validators/categories/update-category-validator';
 import { uuidValidator } from '@/validators/uuid-validator';
 import { NextFunction, Request, Response } from 'express';
 
