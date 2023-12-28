@@ -3,7 +3,7 @@ import { GetTransactionService } from '@/services/transactions/get-transaction-s
 import { uuidValidator } from '@/validators/uuid-validator';
 import { NextFunction, Request, Response } from 'express';
 
-export async function list(
+export async function show(
   request: Request,
   response: Response,
   next: NextFunction,

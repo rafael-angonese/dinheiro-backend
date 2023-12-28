@@ -1,4 +1,4 @@
-import authConfig from '@/config/auth.config';
+import { authConfig } from '@/constants/auth-config';
 import { InvalidCredentialsError } from '@/errors/auth/InvalidCredentialsError';
 import { compareHash } from '@/lib/crypto';
 import { generateRefreshToken, jwtSign } from '@/lib/jwt';

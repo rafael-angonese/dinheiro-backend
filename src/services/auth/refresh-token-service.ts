@@ -1,4 +1,4 @@
-import authConfig from '@/config/auth.config';
+import { authConfig } from '@/constants/auth-config';
 import { JWTInvalidTokenError } from '@/errors/auth/JWTInvalidTokenError';
 import { UserNotFoundError } from '@/errors/users/UserNotFoundError';
 import { generateRefreshToken, jwtSign } from '@/lib/jwt';

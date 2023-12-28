@@ -4,7 +4,7 @@ import { updateTransactionValidator } from '@/validators/transactions/update-tra
 import { uuidValidator } from '@/validators/uuid-validator';
 import { NextFunction, Request, Response } from 'express';
 
-export async function create(
+export async function update(
   request: Request,
   response: Response,
   next: NextFunction,
