@@ -1,17 +1,16 @@
-import { create } from '@/controllers/transactions/create';
-import { destroy } from '@/controllers/transactions/destroy';
-import { list } from '@/controllers/transactions/list';
-import { show } from '@/controllers/transactions/show';
-import { update } from '@/controllers/transactions/update';
+import { create } from '@/controllers/transactions/create-transaction-controller';
+import { destroy } from '@/controllers/transactions/destroy-transaction-controller';
+import { list } from '@/controllers/transactions/list-transactions-controller';
+import { show } from '@/controllers/transactions/show-transaction-controller';
+import { update } from '@/controllers/transactions/update-transaction-controller';
 import { Router } from 'express';
-import { multerUploadS3 } from '../config/multer.config';
 
 const router = Router();
 
 router.get('/', list);
-router.post('/', multerUploadS3.array('files'), create);
+router.post('/', create);
 router.get('/:id', show);
-router.put('/:id', multerUploadS3.array('files'), update);
+router.put('/:id', update);
 router.delete('/:id', destroy);
 
 export default router;

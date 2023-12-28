@@ -1,7 +1,13 @@
-import AppError from "../AppError";
+import AppError from '@/errors/AppError';
+import { httpErrorCode } from '@/errors/http-error-code';
+import { httpStatusCode } from '@/errors/http-status-code';
 
 export class TransactionNotFoundError extends AppError {
-    constructor() {
-        super('Transaction not found', 'TRANSACTION_NOT_FOUND', 404);
-    }
+  constructor() {
+    super(
+      'Transaction not found',
+      httpErrorCode.notFound.transaction,
+      httpStatusCode.notFound,
+    );
+  }
 }

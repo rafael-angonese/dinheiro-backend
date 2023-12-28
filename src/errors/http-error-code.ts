@@ -7,6 +7,7 @@ export const httpErrorCode = {
     account: 'ACCOUNT_NOT_FOUND',
     bankAccount: 'BANK_ACCOUNT_NOT_FOUND',
     category: 'CATEGORY_ACCOUNT_NOT_FOUND',
+    transaction: 'TRANSACTION_ACCOUNT_NOT_FOUND',
   },
 };
 

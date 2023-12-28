@@ -18,9 +18,9 @@ export class UpdateCategoryService {
     id: string,
     { name, type }: UpdateCategoryServiceRequest,
   ): Promise<UpdateCategoryServiceResponse> {
-    const user = await this.categoriesRepository.findById(id);
+    const category = await this.categoriesRepository.findById(id);
 
-    if (!user) {
+    if (!category) {
       throw new CategoryNotFoundError();
     }
 
