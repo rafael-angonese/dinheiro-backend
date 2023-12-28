@@ -5,12 +5,10 @@ import { show } from '@/controllers/bank-accounts/show-bank-account-controller';
 import { update } from '@/controllers/bank-accounts/update-bank-account-service';
 import { Router } from 'express';
 
-const router = Router();
+export const bankAccountRoutes = Router();
 
-router.get('/', list);
-router.post('/', create);
-router.get('/:id', show);
-router.put('/:id', update);
-router.delete('/:id', destroy);
-
-export default router;
+bankAccountRoutes.get('/', list);
+bankAccountRoutes.post('/', create);
+bankAccountRoutes.get('/:id', show);
+bankAccountRoutes.put('/:id', update);
+bankAccountRoutes.delete('/:id', destroy);

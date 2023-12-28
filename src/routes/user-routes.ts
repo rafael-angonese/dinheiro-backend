@@ -5,12 +5,10 @@ import { show } from '@/controllers/users/show-user-controller';
 import { update } from '@/controllers/users/update-user-controller';
 import { Router } from 'express';
 
-const router = Router();
+export const userRoutes = Router();
 
-router.get('/', list);
-router.post('/', create);
-router.get('/:id', show);
-router.put('/:id', update);
-router.delete('/:id', destroy);
-
-export default router;
+userRoutes.get('/', list);
+userRoutes.post('/', create);
+userRoutes.get('/:id', show);
+userRoutes.put('/:id', update);
+userRoutes.delete('/:id', destroy);

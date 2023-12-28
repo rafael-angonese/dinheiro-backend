@@ -5,12 +5,10 @@ import { show } from '@/controllers/accounts/show-account-controller';
 import { update } from '@/controllers/accounts/update-account-service';
 import { Router } from 'express';
 
-const router = Router();
+export const accountRoutes = Router();
 
-router.get('/', list);
-router.post('/', create);
-router.get('/:id', show);
-router.put('/:id', update);
-router.delete('/:id', destroy);
-
-export default router;
+accountRoutes.get('/', list);
+accountRoutes.post('/', create);
+accountRoutes.get('/:id', show);
+accountRoutes.put('/:id', update);
+accountRoutes.delete('/:id', destroy);

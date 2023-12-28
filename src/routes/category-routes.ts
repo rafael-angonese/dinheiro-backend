@@ -5,12 +5,10 @@ import { show } from '@/controllers/categories/show-category-controller';
 import { update } from '@/controllers/categories/update-category-controller';
 import { Router } from 'express';
 
-const router = Router();
+export const categoryRoutes = Router();
 
-router.get('/', list);
-router.post('/', create);
-router.get('/:id', show);
-router.put('/:id', update);
-router.delete('/:id', destroy);
-
-export default router;
+categoryRoutes.get('/', list);
+categoryRoutes.post('/', create);
+categoryRoutes.get('/:id', show);
+categoryRoutes.put('/:id', update);
+categoryRoutes.delete('/:id', destroy);

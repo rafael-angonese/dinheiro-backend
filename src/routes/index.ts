@@ -1,13 +1,12 @@
 import { Router } from 'express';
 
-import accountRoutes from '@/routes/account.routes';
-import authRoutes from '@/routes/auth.routes';
-import bankAccountRoutes from '@/routes/bank_account.routes';
-import categoryRoutes from '@/routes/category.routes';
-import transactionRoutes from '@/routes/transaction.routes';
-import userRoutes from '@/routes/user.routes';
-
 import authenticated from '@/middlewares/authenticated';
+import { accountRoutes } from '@/routes/account-routes';
+import { authRoutes } from '@/routes/auth-routes';
+import { bankAccountRoutes } from '@/routes/bank-account-routes';
+import { categoryRoutes } from '@/routes/category-routes';
+import { transactionRoutes } from '@/routes/transaction-routes';
+import { userRoutes } from '@/routes/user-routes';
 
 const router = Router();
 

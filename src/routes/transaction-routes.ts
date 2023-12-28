@@ -5,12 +5,10 @@ import { show } from '@/controllers/transactions/show-transaction-controller';
 import { update } from '@/controllers/transactions/update-transaction-controller';
 import { Router } from 'express';
 
-const router = Router();
+export const transactionRoutes = Router();
 
-router.get('/', list);
-router.post('/', create);
-router.get('/:id', show);
-router.put('/:id', update);
-router.delete('/:id', destroy);
-
-export default router;
+transactionRoutes.get('/', list);
+transactionRoutes.post('/', create);
+transactionRoutes.get('/:id', show);
+transactionRoutes.put('/:id', update);
+transactionRoutes.delete('/:id', destroy);
