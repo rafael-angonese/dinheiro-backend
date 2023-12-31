@@ -1,9 +1,9 @@
-import { IDecodedJwt } from "../jwt/token";
+import { IDecodedJwt } from '@/@types/jwt/token';
 
 declare global {
-    namespace Express {
-        export interface Request {
-            auth: IDecodedJwt;
-        }
+  namespace Express {
+    export interface Request {
+      auth: IDecodedJwt;
     }
+  }
 }

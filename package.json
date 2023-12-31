@@ -9,23 +9,21 @@
   "scripts": {
     "build": "yarn deploy && tsc --build",
     "start": "node -r dotenv/config dist/server.js",
-    "dev": "ts-node-dev -r dotenv/config --respawn --transpile-only --ignore-watch node_modules --exit-child src/server.ts",
+    "dev": "tsx watch src/server.ts",
     "migrate": "prisma migrate dev",
     "generate": "prisma generate",
     "migrate-deploy": "prisma migrate deploy",
     "deploy": "yarn generate && yarn migrate-deploy"
   },
   "dependencies": {
-    "@prisma/client": "3.10.0",
+    "@prisma/client": "3.13.0",
     "aws-sdk": "^2.1140.0",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
-    "multer": "^1.4.4",
-    "multer-s3": "^2.10.0"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
@@ -33,10 +31,13 @@
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.8",
-    "@types/multer": "^1.4.7",
-    "@types/multer-s3": "^2.7.12",
-    "prisma": "^3.10.0",
-    "ts-node-dev": "^1.1.8",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.1.1",
+    "prisma": "^3.13.0",
+    "tsx": "^4.6.2",
     "typescript": "^4.5.5"
   }
 }

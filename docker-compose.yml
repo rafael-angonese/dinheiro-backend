@@ -1,12 +1,13 @@
 version: "3.7"
 
 services:
-  postgres:
+  postgres_diero:
     image: postgres:latest
     hostname: postgres
+    container_name: postgres_instance_diero
     environment:
-      POSTGRES_DB: critoen
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: diero
+      POSTGRES_USER: diero
+      POSTGRES_PASSWORD: diero
     ports:
       - "5432:5432"

@@ -1,11 +1,26 @@
-export default class AppError {
-    public readonly message: string;
-    public readonly code: string;
-    public readonly statusCode: number;
+import { HttpErrorCodeType } from '@/errors/http-error-code';
+import { HttpStatusCodeType } from '@/errors/http-status-code';
 
-    constructor(message: string, code: string = '', statusCode = 400) {
-        this.message = message
-        this.code = code
-        this.statusCode = statusCode
-    }
+export default class AppError extends Error {
+  public readonly errorCode: HttpErrorCodeType;
+  public readonly statusCode: HttpStatusCodeType;
+
+  constructor(
+    message: string,
+    errorCode: HttpErrorCodeType,
+    statusCode: HttpStatusCodeType,
+  ) {
+    super(message);
+    this.message = message;
+    this.statusCode = statusCode;
+    this.errorCode = errorCode;
+  }
+
+  getBody() {
+    return {
+      message: this.message,
+      errorCode: this.errorCode,
+      statusCode: this.statusCode,
+    };
+  }
 }
