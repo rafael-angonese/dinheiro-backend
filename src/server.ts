@@ -1,5 +1,5 @@
 import cors from 'cors';
-import 'dotenv';
+import 'dotenv/config'
 import express from 'express';
 
 import errorHandler from '@/middlewares/error-handler';
