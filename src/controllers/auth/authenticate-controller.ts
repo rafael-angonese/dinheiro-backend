@@ -26,10 +26,8 @@ export async function authenticate(
     });
 
     return response.json({
-      data: {
         token,
         refreshToken: refreshToken.token,
-      },
     });
   } catch (error) {
     next(error);
