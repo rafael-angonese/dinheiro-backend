@@ -3,7 +3,7 @@ import 'dotenv/config'
 import express from 'express';
 
 import errorHandler from '@/middlewares/error-handler';
-import routes from '@/routes';
+import routes from '@/routes/routes';
 
 const app = express();
 
