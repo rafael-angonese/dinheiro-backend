@@ -10,8 +10,9 @@
     "build": "yarn deploy && tsc --build",
     "start": "node -r dotenv/config dist/server.js",
     "dev": "tsx watch src/server.ts",
-    "migrate": "prisma migrate dev",
+    "migration": "prisma migrate dev",
     "generate": "prisma generate",
+    "seed": "tsx src/database/seeders/seed.ts",
     "migrate-deploy": "prisma migrate deploy",
     "deploy": "yarn generate && yarn migrate-deploy"
   },
