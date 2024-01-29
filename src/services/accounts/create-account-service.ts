@@ -20,7 +20,7 @@ export class CreateAccountService {
     name,
   }: CreateAccountServiceRequest): Promise<CreateAccountServiceResponse> {
     const account = await this.accountsRepository.create({
-      user_id: userId,
+      userId,
       name,
       description,
     });

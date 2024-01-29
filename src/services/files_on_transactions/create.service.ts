@@ -2,8 +2,8 @@ import { FileOnTransaction } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 interface IRequest {
-  file_id: string;
-  transaction_id: string;
+  fileId: string;
+  transactionId: string;
 }
 
 export class CreateFileOnTransactionService {

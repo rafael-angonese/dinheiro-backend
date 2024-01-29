@@ -34,10 +34,10 @@ export class CreateTransactionService {
       description,
       amount,
       type,
-      category_id: categoryId,
-      user_id: userId,
-      account_id: accountId,
-      bank_account_id: bankAccountId,
+      categoryId,
+      userId,
+      accountId,
+      bankAccountId,
     });
 
     return {

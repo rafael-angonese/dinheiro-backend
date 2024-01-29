@@ -24,8 +24,8 @@ export class CreateBankAccountService {
     const bankAccount = await this.bankAccountsRepository.create({
       name,
       balance,
-      user_id: userId,
-      account_id: accountId,
+      userId,
+      accountId,
     });
 
     return {

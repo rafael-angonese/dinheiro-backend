@@ -8,8 +8,8 @@ interface IRequest {
   bucket: string;
   url: string;
   size: number;
-  content_type: string;
-  original_name: string;
+  contentType: string;
+  originalName: string;
 }
 
 export class CreateFileService {

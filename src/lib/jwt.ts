@@ -3,7 +3,7 @@ import { authConfig } from '@/constants/auth-config';
 import jwt, { SignOptions } from 'jsonwebtoken';
 
 interface IPayloadProps {
-  user_id: string;
+  userId: string;
   role: string;
 }
 

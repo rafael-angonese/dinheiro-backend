@@ -23,16 +23,16 @@ export type ListTransactions = Prisma.TransactionGetPayload<{
         name: true;
       };
     };
-    fileOnTransaction: {
+    fileOnTransactions: {
       select: {
         id: true;
-        file_id: true;
+        fileId: true;
         file: {
           select: {
             id: true;
-            content_type: true;
+            contentType: true;
             name: true;
-            original_name: true;
+            originalName: true;
           };
         };
       };
