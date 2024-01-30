@@ -9,23 +9,23 @@ export async function list(
   next: NextFunction,
 ) {
   try {
-    const { q, page, accountId } = listBankAccountsValidator.parse(
+    const { qs, page, perPage, accountId } = listBankAccountsValidator.parse(
       request.query,
     );
-    const { user_id } = request.auth;
 
     const bankAccountsRepository = new PrismaBankAccountsRepository();
     const useCase = new ListBankAccountsService(bankAccountsRepository);
 
-    const { bankAccounts } = await useCase.execute({
-      query: q,
+    const { data, meta } = await useCase.execute({
+      qs,
       page,
-      userId: user_id,
-      accountId: accountId,
+      perPage,
+      accountId,
     });
 
     return response.json({
-      data: bankAccounts,
+      data,
+      meta,
     });
   } catch (error) {
     next(error);

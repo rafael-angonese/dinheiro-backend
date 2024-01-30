@@ -1,12 +1,20 @@
+import { Meta } from '@/@types/meta';
 import { BankAccount, Prisma } from '@prisma/client';
 
+export interface GetBankAccountsRequest {
+  qs?: string;
+  page: number;
+  perPage: number;
+  accountId: string,
+}
+
+export interface GetBankAccountsResponse {
+  data: BankAccount[]
+  meta: Meta
+}
+
 export interface BankAccountsRepository {
-  list(
-    query: string,
-    page: number,
-    userId: string,
-    accountId: string,
-  ): Promise<BankAccount[]>;
+  list(params: GetBankAccountsRequest): Promise<GetBankAccountsResponse>;
   findById(id: string): Promise<BankAccount | null>;
   create(data: Prisma.BankAccountUncheckedCreateInput): Promise<BankAccount>;
   update(id: string, data: Prisma.BankAccountUpdateInput): Promise<BankAccount>;

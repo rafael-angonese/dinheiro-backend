@@ -17,8 +17,8 @@ export class ListCategoriesService {
   constructor(private categoriesRepository: CategoriesRepository) {}
 
   async execute({
-    page,
     qs,
+    page,
     perPage
   }: ListCategoriesServiceRequest): Promise<ListCategoriesServiceResponse> {
     const { data, meta } = await this.categoriesRepository.list({

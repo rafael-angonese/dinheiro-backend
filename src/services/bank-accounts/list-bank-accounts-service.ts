@@ -1,35 +1,41 @@
+import { Meta } from '@/@types/meta';
 import { BankAccountsRepository } from '@/repositories/bank-accounts-repository';
 import { BankAccount } from '@prisma/client';
 
 interface ListBankAccountsServiceRequest {
-  query?: string;
+  qs?: string;
   page: number;
-  userId: string;
+  perPage: number;
   accountId: string;
 }
 
 interface ListBankAccountsServiceResponse {
-  bankAccounts: BankAccount[];
+  data: BankAccount[];
+  meta: Meta
+
 }
 
 export class ListBankAccountsService {
-  constructor(private bankAccountsRepository: BankAccountsRepository) {}
+  constructor(private bankAccountsRepository: BankAccountsRepository) { }
 
   async execute({
+    qs,
     page,
-    query = '',
-    userId,
+    perPage,
     accountId,
   }: ListBankAccountsServiceRequest): Promise<ListBankAccountsServiceResponse> {
-    const bankAccounts = await this.bankAccountsRepository.list(
-      query,
-      page,
-      userId,
-      accountId,
+    const { data, meta } = await this.bankAccountsRepository.list(
+      {
+        qs,
+        page,
+        perPage,
+        accountId,
+      }
     );
 
     return {
-      bankAccounts,
+      data,
+      meta
     };
   }
 }
