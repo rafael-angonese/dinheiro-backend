@@ -1,21 +1,37 @@
 import { Prisma } from '@prisma/client';
 
 import { prisma } from '@/lib/prisma';
-import { CategoriesRepository } from '@/repositories/categories-repository';
+import { CategoriesRepository, GetCategoriesRequest } from '@/repositories/categories-repository';
 export class PrismaCategoriesRepository implements CategoriesRepository {
-  async list(query: string, page: number) {
-    const categories = await prisma.category.findMany({
+  async list({
+    qs,
+    page,
+    perPage
+  }: GetCategoriesRequest) {
+    const query: Prisma.CategoryFindManyArgs = {
       where: {
-        name: {
-          contains: query,
-          mode: 'insensitive',
-        },
+        ...(qs && {
+          name: {
+            contains: qs,
+            mode: 'insensitive',
+          },
+        })
       },
-      take: 20,
-      skip: (page - 1) * 20,
-    });
+    };
 
-    return categories;
+    const [categories, count] = await prisma.$transaction([
+      prisma.category.findMany({...query, take: perPage,
+        skip: (page - 1) * perPage }),
+      prisma.category.count({ where: query.where })
+    ]);
+
+    return {
+      data: categories,
+      meta: {
+        total: count,
+        lastPage: Math.ceil(count / perPage)
+      }
+    };
   }
 
   async findById(id: string) {

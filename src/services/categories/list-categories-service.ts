@@ -1,13 +1,16 @@
+import { Meta } from '@/@types/meta';
 import { CategoriesRepository } from '@/repositories/categories-repository';
 import { Category } from '@prisma/client';
 
 interface ListCategoriesServiceRequest {
-  query?: string;
+  qs?: string;
   page: number;
+  perPage: number;
 }
 
 interface ListCategoriesServiceResponse {
-  categories: Category[];
+  data: Category[];
+  meta: Meta
 }
 
 export class ListCategoriesService {
@@ -15,12 +18,18 @@ export class ListCategoriesService {
 
   async execute({
     page,
-    query = '',
+    qs,
+    perPage
   }: ListCategoriesServiceRequest): Promise<ListCategoriesServiceResponse> {
-    const categories = await this.categoriesRepository.list(query, page);
+    const { data, meta } = await this.categoriesRepository.list({
+      qs,
+      page,
+      perPage
+    });
 
     return {
-      categories,
+      data,
+      meta
     };
   }
 }

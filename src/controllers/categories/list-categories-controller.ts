@@ -9,18 +9,20 @@ export async function list(
   next: NextFunction,
 ) {
   try {
-    const { q, page } = listCategoriesValidator.parse(request.query);
+    const { qs, page, perPage } = listCategoriesValidator.parse(request.query);
 
     const categoriesRepository = new PrismaCategoriesRepository();
     const useCase = new ListCategoriesService(categoriesRepository);
 
-    const { categories } = await useCase.execute({
-      query: q,
+    const { data, meta } = await useCase.execute({
+      qs,
       page,
+      perPage
     });
 
     return response.json({
-      data: categories,
+      data,
+      meta
     });
   } catch (error) {
     next(error);
