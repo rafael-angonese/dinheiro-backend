@@ -10,22 +10,24 @@ export async function list(
   next: NextFunction,
 ) {
   try {
-    const { q, page } = listUsersValidator.parse(request.query);
+    const { qs, page, perPage } = listUsersValidator.parse(request.query);
 
     const usersRepository = new PrismaUsersRepository();
     const useCase = new ListUserService(usersRepository);
 
-    const { users } = await useCase.execute({
-      query: q,
+    const { data, meta } = await useCase.execute({
+      qs,
       page,
+      perPage
     });
 
-    const usersWithoutPassword = users.map((user) =>
+    const usersWithoutPassword = data.map((user) =>
       excludeUserPasswordField(user),
     );
 
     return response.json({
       data: usersWithoutPassword,
+      meta
     });
   } catch (error) {
     next(error);

@@ -1,21 +1,38 @@
 import { Prisma } from '@prisma/client';
 
 import { prisma } from '@/lib/prisma';
-import { UsersRepository } from '../users-repository';
+import { GetUsersRequest, UsersRepository } from '@/repositories/users-repository';
 export class PrismaUsersRepository implements UsersRepository {
-  async list(query: string, page: number) {
-    const users = await prisma.user.findMany({
+  async list({
+    qs,
+    page,
+    perPage
+  }: GetUsersRequest) {
+    const query: Prisma.UserFindManyArgs = {
       where: {
-        name: {
-          contains: query,
-          mode: 'insensitive',
-        },
+        ...(qs && {
+          name: {
+            contains: qs,
+            mode: 'insensitive',
+          },
+        })
       },
-      take: 20,
-      skip: (page - 1) * 20,
-    });
+    };
 
-    return users;
+    const [users, count] = await prisma.$transaction([
+      prisma.user.findMany({...query, take: perPage,
+        skip: (page - 1) * perPage }),
+      prisma.user.count({ where: query.where })
+    ]);
+
+
+    return {
+      data: users,
+      meta: {
+        total: count,
+        lastPage: Math.ceil(count / perPage)
+      }
+    };
   }
 
   async findById(id: string) {

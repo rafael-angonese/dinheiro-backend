@@ -1,26 +1,35 @@
+import { Meta } from '@/@types/meta';
 import { UsersRepository } from '@/repositories/users-repository';
 import { User } from '@prisma/client';
 
 interface ListUserServiceRequest {
-  query?: string;
+  qs?: string;
   page: number;
+  perPage: number;
 }
 
 interface ListUserServiceResponse {
-  users: User[];
+  data: User[];
+  meta: Meta
 }
 
 export class ListUserService {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({
+    qs,
     page,
-    query = '',
+    perPage
   }: ListUserServiceRequest): Promise<ListUserServiceResponse> {
-    const users = await this.usersRepository.list(query, page);
+    const { data, meta } = await this.usersRepository.list({
+      qs,
+      page,
+      perPage
+    });
 
     return {
-      users: users,
+      data,
+      meta
     };
   }
 }
