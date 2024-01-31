@@ -9,20 +9,22 @@ export async function list(
   next: NextFunction,
 ) {
   try {
-    const { q, page } = listAccountsValidator.parse(request.query);
-    const { user_id } = request.auth;
+    const { qs, page, perPage } = listAccountsValidator.parse(request.query);
+    const { userId } = request.auth;
 
     const accountsRepository = new PrismaAccountRepository();
     const useCase = new ListAccountsService(accountsRepository);
 
-    const { accounts } = await useCase.execute({
-      query: q,
+    const { data, meta } = await useCase.execute({
+      qs,
       page,
-      userId: user_id,
+      perPage,
+      userId,
     });
 
     return response.json({
-      data: accounts,
+      data,
+      meta
     });
   } catch (error) {
     next(error);

@@ -1,21 +1,39 @@
 import { Prisma } from '@prisma/client';
 
 import { prisma } from '@/lib/prisma';
-import { AccountsRepository } from '../accounts-repository';
+import { AccountsRepository, GetAccountsRequest } from '@/repositories/accounts-repository';
 export class PrismaAccountRepository implements AccountsRepository {
-  async list(query: string, page: number) {
-    const accounts = await prisma.account.findMany({
+  async list({
+    qs,
+    page,
+    perPage,
+    userId
+  }: GetAccountsRequest) {
+    const query: Prisma.AccountFindManyArgs = {
       where: {
-        name: {
-          contains: query,
-          mode: 'insensitive',
-        },
+        ...(qs && {
+          name: {
+            contains: qs,
+            mode: 'insensitive',
+          },
+        }),
+        userId: userId
       },
-      take: 20,
-      skip: (page - 1) * 20,
-    });
+    };
 
-    return accounts;
+    const [accounts, count] = await prisma.$transaction([
+      prisma.account.findMany({...query, take: perPage,
+        skip: (page - 1) * perPage }),
+      prisma.account.count({ where: query.where })
+    ]);
+
+    return {
+      data: accounts,
+      meta: {
+        total: count,
+        lastPage: Math.ceil(count / perPage)
+      }
+    };
   }
 
   async findById(id: string) {

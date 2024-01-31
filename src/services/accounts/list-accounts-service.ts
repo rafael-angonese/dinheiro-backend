@@ -1,28 +1,38 @@
+import { Meta } from '@/@types/meta';
 import { AccountsRepository } from '@/repositories/accounts-repository';
 import { Account } from '@prisma/client';
 
 interface ListAccountsServiceRequest {
-  query?: string;
+  qs?: string;
   page: number;
+  perPage: number;
   userId: string;
 }
 
 interface ListAccountsServiceResponse {
-  accounts: Account[];
+  data: Account[];
+  meta: Meta
 }
 
 export class ListAccountsService {
   constructor(private accountsRepository: AccountsRepository) {}
 
   async execute({
+    qs,
     page,
-    query = '',
+    perPage,
     userId,
   }: ListAccountsServiceRequest): Promise<ListAccountsServiceResponse> {
-    const accounts = await this.accountsRepository.list(query, page, userId);
+    const { data, meta } = await this.accountsRepository.list({
+      qs,
+      page,
+      perPage,
+      userId,
+    });
 
     return {
-      accounts: accounts,
+      data,
+      meta
     };
   }
 }
