@@ -68,7 +68,8 @@ model BankAccount {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  transactions Transaction[]
+  transactions       Transaction[]
+  sourceTransactions Transaction[] @relation(name: "sourceAccount")
 
   @@map("bank_accounts")
 }
@@ -79,11 +80,11 @@ enum CategoryType {
 }
 
 model Category {
-  id        String   @id @default(uuid())
+  id        String       @id @default(uuid())
   name      String
   type      CategoryType @default(CREDIT)
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @updatedAt @map("updated_at")
 
   transactions Transaction[]
 
@@ -91,46 +92,50 @@ model Category {
 }
 
 model Transaction {
-  id            String      @id @default(uuid())
-  date          DateTime
-  description   String
-  amount        Float
-  type          String
-  category      Category    @relation(fields: [categoryId], references: [id])
-  categoryId    String      @map("category_id")
-  user          User        @relation(fields: [userId], references: [id])
-  userId        String
-  account       Account     @relation(fields: [accountId], references: [id])
-  accountId     String      @map("account_id")
-  bankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
-  bankAccountId String      @map("bank_account_id")
-  createdAt     DateTime    @default(now()) @map("created_at")
-  updatedAt     DateTime    @updatedAt @map("updated_at")
+  id          String   @id @default(uuid())
+  date        DateTime
+  description String
+  amount      Float
+  type        String
 
-  fileOnTransactions FileOnTransaction[]
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @map("category_id")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  account   Account @relation(fields: [accountId], references: [id])
+  accountId String  @map("account_id")
+
+  bankAccountId String      @map("bank_account_id")
+  BankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
+
+  sourceAccount   BankAccount? @relation(name: "sourceAccount", fields: [sourceAccountId], references: [id])
+  sourceAccountId String?      @map("source_account_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  transactionFiles TransactionFiles[]
 
   @@map("transactions")
 }
 
 model File {
   id           String   @id @default(uuid())
-  key          String
-  model        String
   name         String
   originalName String?  @map("original_name")
-  bucket       String
-  url          String
   size         Float
   contentType  String   @map("content_type")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
 
-  fileOnTransactions FileOnTransaction[]
+  fileOnTransactions TransactionFiles[]
 
   @@map("files")
 }
 
-model FileOnTransaction {
+model TransactionFiles {
   id            String      @id @default(uuid())
   file          File        @relation(fields: [fileId], references: [id])
   fileId        String      @map("file_id")
@@ -139,5 +144,5 @@ model FileOnTransaction {
   createdAt     DateTime    @default(now()) @map("created_at")
   updatedAt     DateTime    @updatedAt @map("updated_at")
 
-  @@map("files_on_transactions")
+  @@map("transaction_files")
 }

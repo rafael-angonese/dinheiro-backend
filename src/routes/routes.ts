@@ -7,6 +7,7 @@ import { bankAccountRoutes } from '@/routes/bank-account-routes';
 import { categoryRoutes } from '@/routes/category-routes';
 import { transactionRoutes } from '@/routes/transaction-routes';
 import { userRoutes } from '@/routes/user-routes';
+import { createPresignedUrl } from '@/controllers/create-presigned-url-controller';
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use('/accounts', authenticated, accountRoutes);
 router.use('/bank-accounts', authenticated, bankAccountRoutes);
 router.use('/categories', authenticated, categoryRoutes);
 router.use('/transactions', authenticated, transactionRoutes);
+router.get('/presigned-url', authenticated, createPresignedUrl)
 
 export default router;
