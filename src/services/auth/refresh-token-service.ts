@@ -56,7 +56,7 @@ export class RefreshTokenService {
       valid: false,
     });
 
-    const newToken = jwtSign({ userId: user.id, role: user.role });
+    const newToken = jwtSign({ userId: user.id });
 
     const generatedRefreshToken = generateRefreshToken(user.id);
 

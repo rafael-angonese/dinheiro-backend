@@ -11,14 +11,14 @@ export async function create(
   next: NextFunction,
 ) {
   try {
-    const { name, email, password, role } = createUserValidator.parse(
+    const { name, email, password } = createUserValidator.parse(
       request.body,
     );
 
     const usersRepository = new PrismaUsersRepository();
     const useCase = new CreateUserService(usersRepository);
 
-    const { user } = await useCase.execute({ name, email, password, role });
+    const { user } = await useCase.execute({ name, email, password });
 
     const userWithoutPassword = excludeUserPasswordField(user);
 

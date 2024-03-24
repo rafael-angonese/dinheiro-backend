@@ -1,7 +1,6 @@
-
-import { CategoryType } from '@/constants/category-type';
 import { prismaClient } from '@/database/prismaClient';
 import { generateHash } from '@/lib/crypto';
+import { CategoryType } from '@prisma/client';
 
 async function main() {
 

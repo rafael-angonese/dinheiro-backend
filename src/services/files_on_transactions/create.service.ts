@@ -1,4 +1,4 @@
-import { FileOnTransaction } from "@prisma/client";
+import { TransactionFiles } from "@prisma/client";
 import { prismaClient } from "../../database/prismaClient";
 
 interface IRequest {
@@ -7,8 +7,8 @@ interface IRequest {
 }
 
 export class CreateFileOnTransactionService {
-  async execute(params: IRequest): Promise<FileOnTransaction> {
-    const data = await prismaClient.fileOnTransaction.create({
+  async execute(params: IRequest): Promise<TransactionFiles> {
+    const data = await prismaClient.transactionFiles.create({
       data: {
         ...params,
       },

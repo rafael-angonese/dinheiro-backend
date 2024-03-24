@@ -1,7 +1,6 @@
 import { Router } from 'express';
 
 import authenticated from '@/middlewares/authenticated';
-import { accountRoutes } from '@/routes/account-routes';
 import { authRoutes } from '@/routes/auth-routes';
 import { bankAccountRoutes } from '@/routes/bank-account-routes';
 import { categoryRoutes } from '@/routes/category-routes';
@@ -17,7 +16,6 @@ router.get('/', (_request, response) => {
 
 router.use('/auth', authRoutes);
 router.use('/users', authenticated, userRoutes);
-router.use('/accounts', authenticated, accountRoutes);
 router.use('/bank-accounts', authenticated, bankAccountRoutes);
 router.use('/categories', authenticated, categoryRoutes);
 router.use('/transactions', authenticated, transactionRoutes);

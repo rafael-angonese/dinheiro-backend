@@ -4,7 +4,6 @@ import jwt, { SignOptions } from 'jsonwebtoken';
 
 interface IPayloadProps {
   userId: string;
-  role: string;
 }
 
 const signOptions: SignOptions = {

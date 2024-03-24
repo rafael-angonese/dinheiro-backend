@@ -1,4 +1,4 @@
-import { CategoryType } from '@/constants/category-type';
+import { CategoryType } from '@prisma/client';
 import { z } from 'zod';
 
 export const updateCategoryValidator = z.object({

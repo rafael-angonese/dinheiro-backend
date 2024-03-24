@@ -38,7 +38,7 @@ export class AuthenticateService {
       throw new InvalidCredentialsError();
     }
 
-    const token = jwtSign({ userId: user.id, role: user.role });
+    const token = jwtSign({ userId: user.id });
 
     const generatedRefreshToken = generateRefreshToken(user.id);
 

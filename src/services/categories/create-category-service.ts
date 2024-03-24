@@ -1,9 +1,9 @@
 import { CategoriesRepository } from '@/repositories/categories-repository';
-import { Category } from '@prisma/client';
+import { Category, CategoryType } from '@prisma/client';
 
 interface CreateCategoryServiceRequest {
   name: string;
-  type: string;
+  type: CategoryType;
 }
 
 interface CreateCategoryServiceResponse {

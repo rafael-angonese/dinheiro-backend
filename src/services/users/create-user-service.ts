@@ -7,7 +7,6 @@ interface CreateUserServiceRequest {
   name: string;
   email: string;
   password: string;
-  role: string;
 }
 
 interface CreateUserServiceResponse {
@@ -21,7 +20,6 @@ export class CreateUserService {
     name,
     email,
     password,
-    role,
   }: CreateUserServiceRequest): Promise<CreateUserServiceResponse> {
     const userWithSameEmail = await this.usersRepository.findByEmail(email);
 
@@ -35,7 +33,6 @@ export class CreateUserService {
       name,
       email,
       password: passwordHash,
-      role,
     });
 
     return {

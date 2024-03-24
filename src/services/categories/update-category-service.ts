@@ -1,10 +1,10 @@
 import { CategoryNotFoundError } from '@/errors/categories/CategoryNotFoundError';
 import { CategoriesRepository } from '@/repositories/categories-repository';
-import { Category } from '@prisma/client';
+import { Category, CategoryType } from '@prisma/client';
 
 interface UpdateCategoryServiceRequest {
   name?: string;
-  type?: string;
+  type?: CategoryType;
 }
 
 interface UpdateCategoryServiceResponse {

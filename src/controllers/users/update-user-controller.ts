@@ -12,12 +12,12 @@ export async function update(
 ) {
   try {
     const { id } = uuidValidator.parse(request.params);
-    const { name, email, role } = updateUserValidator.parse(request.body);
+    const { name, email } = updateUserValidator.parse(request.body);
 
     const usersRepository = new PrismaUsersRepository();
     const useCase = new UpdateUserService(usersRepository);
 
-    const { user } = await useCase.execute(id, { name, email, role });
+    const { user } = await useCase.execute(id, { name, email });
 
     const userWithoutPassword = excludeUserPasswordField(user);
 

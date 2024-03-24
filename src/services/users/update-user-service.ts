@@ -5,7 +5,6 @@ import { User } from '@prisma/client';
 interface UpdateUserServiceRequest {
   name?: string;
   email?: string;
-  role?: string;
 }
 
 interface UpdateUserServiceResponse {
@@ -17,7 +16,7 @@ export class UpdateUserService {
 
   async execute(
     id: string,
-    { email, name, role }: UpdateUserServiceRequest,
+    { email, name }: UpdateUserServiceRequest,
   ): Promise<UpdateUserServiceResponse> {
     const user = await this.usersRepository.findById(id);
 
@@ -28,7 +27,6 @@ export class UpdateUserService {
     const updatedUser = await this.usersRepository.update(id, {
       name,
       email,
-      role,
     });
 
     return {
