@@ -8,11 +8,20 @@ export interface GetTransactionsRequest {
   userId?: string
   startDate?: Date;
   endDate?: Date;
- 
+
 }
 
 export interface GetTransactionsResponse {
-  data: Transaction[]
+  data: (Transaction & {
+    category: {
+      id: string;
+      name: string;
+    };
+    bankAccount: {
+      id: string;
+      name: string;
+    };
+  })[]
   meta: Meta
 }
 

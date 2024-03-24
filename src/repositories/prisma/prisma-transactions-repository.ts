@@ -29,8 +29,21 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
     };
 
     const [transactions, count] = await prisma.$transaction([
-      prisma.transaction.findMany({...query, take: perPage,
-        skip: (page - 1) * perPage }),
+      prisma.transaction.findMany({...query, take: perPage, include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        bankAccount: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+      skip: (page - 1) * perPage }),
       prisma.transaction.count({ where: query.where })
     ]);
 

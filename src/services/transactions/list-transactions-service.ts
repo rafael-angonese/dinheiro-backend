@@ -14,12 +14,21 @@ interface ListTransactionsServiceRequest {
 }
 
 interface ListTransactionsServiceResponse {
-  data: Transaction[];
+  data: (Transaction & {
+    category: {
+      id: string;
+      name: string;
+    };
+    bankAccount: {
+      id: string;
+      name: string;
+    };
+  })[]
   meta: Meta;
 }
 
 export class ListTransactionsService {
-  constructor(private transactionsRepository: TransactionsRepository) {}
+  constructor(private transactionsRepository: TransactionsRepository) { }
 
   async execute({
     qs,
@@ -29,7 +38,7 @@ export class ListTransactionsService {
     startDate,
     endDate,
   }: ListTransactionsServiceRequest): Promise<ListTransactionsServiceResponse> {
-    const { data, meta }  = await this.transactionsRepository.list({
+    const { data, meta } = await this.transactionsRepository.list({
       qs,
       page,
       perPage,

@@ -86,7 +86,7 @@ model Transaction {
   userId String @map("user_id")
 
   bankAccountId String      @map("bank_account_id")
-  BankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
+  bankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
 
   sourceAccount   BankAccount? @relation(name: "sourceAccount", fields: [sourceAccountId], references: [id])
   sourceAccountId String?      @map("source_account_id")
