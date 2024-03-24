@@ -46,7 +46,6 @@ model BankAccount {
   balance   Float
   user      User     @relation(fields: [userId], references: [id])
   userId    String   @map("user_id")
-  accountId String   @map("account_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
@@ -85,8 +84,6 @@ model Transaction {
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")
-
-  accountId String  @map("account_id")
 
   bankAccountId String      @map("bank_account_id")
   BankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])

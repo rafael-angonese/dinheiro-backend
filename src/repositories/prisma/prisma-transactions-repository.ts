@@ -11,7 +11,6 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
     page,
     perPage,
     userId,
-    accountId,
     // startDate,
     // endDate,
   }: GetTransactionsRequest) {
@@ -22,9 +21,6 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
             contains: qs,
             mode: 'insensitive',
           },
-        }),
-        ...(accountId && {
-          accountId: accountId,
         }),
         ...(userId && {
           userId: userId,
@@ -47,9 +43,6 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
     //     },
     //     ...(userId && {
     //       user_id: userId,
-    //     }),
-    //     ...(accountId && {
-    //       account_id: accountId,
     //     }),
     //     ...(startDate &&
     //       endDate && {

@@ -9,7 +9,7 @@ export async function list(
   next: NextFunction,
 ) {
   try {
-    const { qs, page, perPage, accountId } = listBankAccountsValidator.parse(
+    const { qs, page, perPage } = listBankAccountsValidator.parse(
       request.query,
     );
 
@@ -19,8 +19,7 @@ export async function list(
     const { data, meta } = await useCase.execute({
       qs,
       page,
-      perPage,
-      accountId,
+      perPage
     });
 
     return response.json({

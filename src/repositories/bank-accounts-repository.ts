@@ -5,7 +5,6 @@ export interface GetBankAccountsRequest {
   qs?: string;
   page: number;
   perPage: number;
-  accountId: string,
 }
 
 export interface GetBankAccountsResponse {

@@ -9,7 +9,6 @@ interface UpdateTransactionServiceRequest {
   type?: string;
   categoryId?: string;
   userId?: string;
-  accountId?: string;
   bankAccountId?: string;
 }
 
@@ -29,7 +28,6 @@ export class UpdateTransactionService {
       type,
       categoryId,
       userId,
-      accountId,
       bankAccountId,
     }: UpdateTransactionServiceRequest,
   ): Promise<UpdateTransactionServiceResponse> {
@@ -46,7 +44,6 @@ export class UpdateTransactionService {
       type,
       categoryId,
       userId,
-      accountId,
       bankAccountId,
     });
 

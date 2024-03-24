@@ -6,7 +6,6 @@ export const listTransactionsValidator = z.object({
   page: z.coerce.number().min(1).default(1),
   perPage: z.coerce.number().min(1).default(DEFAULT_PER_PAGE),
   categoryId: z.string().uuid().optional(),
-  accountId: z.string().uuid().optional(),
   bankAccountId: z.string().uuid().optional(),
   userId: z.string().uuid().optional(),
   startDate: z.date().optional(),

@@ -9,7 +9,7 @@ export async function list(
   next: NextFunction,
 ) {
   try {
-    const { qs, page, perPage, accountId, userId, startDate, endDate } =
+    const { qs, page, perPage, userId, startDate, endDate } =
       listTransactionsValidator.parse(request.query);
 
     const transactionsRepository = new PrismaTransactionsRepository();
@@ -19,7 +19,6 @@ export async function list(
       qs,
       page,
       perPage,
-      accountId,
       userId,
       startDate,
       endDate,

@@ -8,7 +8,6 @@ export class PrismaBankAccountsRepository implements BankAccountsRepository {
     qs,
     page,
     perPage,
-    accountId,
   }: GetBankAccountsRequest) {
     const query: Prisma.BankAccountFindManyArgs = {
       where: {
@@ -18,7 +17,6 @@ export class PrismaBankAccountsRepository implements BankAccountsRepository {
             mode: 'insensitive',
           },
         }),
-        accountId: accountId,
       },
     };
 

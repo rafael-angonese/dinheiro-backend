@@ -10,7 +10,7 @@ export async function create(
   next: NextFunction,
 ) {
   try {
-    const { name, balance, accountId } = createBankAccountValidator.parse(
+    const { name, balance } = createBankAccountValidator.parse(
       request.body,
     );
     const { user_id } = request.auth;
@@ -21,7 +21,6 @@ export async function create(
     const { bankAccount } = await useCase.execute({
       name,
       balance,
-      accountId: accountId,
       userId: user_id,
     });
 

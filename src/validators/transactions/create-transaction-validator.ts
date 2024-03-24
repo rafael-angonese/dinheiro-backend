@@ -7,6 +7,5 @@ export const createTransactionValidator = z.object({
   amount: z.number(),
   type: z.nativeEnum(TransactionType),
   categoryId: z.string().uuid(),
-  accountId: z.string().uuid(),
   bankAccountId: z.string().uuid(),
 });

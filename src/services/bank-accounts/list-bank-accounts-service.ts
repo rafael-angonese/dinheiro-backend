@@ -6,7 +6,6 @@ interface ListBankAccountsServiceRequest {
   qs?: string;
   page: number;
   perPage: number;
-  accountId: string;
 }
 
 interface ListBankAccountsServiceResponse {
@@ -22,14 +21,12 @@ export class ListBankAccountsService {
     qs,
     page,
     perPage,
-    accountId,
   }: ListBankAccountsServiceRequest): Promise<ListBankAccountsServiceResponse> {
     const { data, meta } = await this.bankAccountsRepository.list(
       {
         qs,
         page,
         perPage,
-        accountId,
       }
     );
 

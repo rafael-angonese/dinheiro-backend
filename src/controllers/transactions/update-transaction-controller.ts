@@ -18,7 +18,6 @@ export async function update(
       amount,
       type,
       categoryId,
-      accountId,
       bankAccountId,
     } = updateTransactionValidator.parse(request.body);
 
@@ -31,7 +30,6 @@ export async function update(
       amount,
       type,
       categoryId,
-      accountId,
       bankAccountId,
     });
 

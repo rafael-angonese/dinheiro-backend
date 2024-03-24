@@ -6,7 +6,6 @@ export interface GetTransactionsRequest {
   page: number;
   perPage: number;
   userId?: string
-  accountId?: string;
   startDate?: Date;
   endDate?: Date;
  

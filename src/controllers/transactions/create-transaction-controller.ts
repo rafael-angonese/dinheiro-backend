@@ -16,7 +16,6 @@ export async function create(
       amount,
       type,
       categoryId,
-      accountId,
       bankAccountId,
     } = createTransactionValidator.parse(request.body);
 
@@ -32,7 +31,6 @@ export async function create(
       type,
       categoryId,
       userId,
-      accountId,
       bankAccountId,
     });
 

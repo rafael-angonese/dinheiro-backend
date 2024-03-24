@@ -8,7 +8,6 @@ interface CreateTransactionServiceRequest {
   type: string;
   categoryId: string;
   userId: string;
-  accountId: string;
   bankAccountId: string;
 }
 
@@ -26,7 +25,6 @@ export class CreateTransactionService {
     type,
     categoryId,
     userId,
-    accountId,
     bankAccountId,
   }: CreateTransactionServiceRequest): Promise<CreateTransactionServiceResponse> {
     const transaction = await this.transactionsRepository.create({
@@ -36,7 +34,6 @@ export class CreateTransactionService {
       type,
       categoryId,
       userId,
-      accountId,
       bankAccountId,
       sourceAccountId: null,
     });

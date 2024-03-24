@@ -5,7 +5,6 @@ interface CreateBankAccountServiceRequest {
   name: string;
   balance: number;
   userId: string;
-  accountId: string;
 }
 
 interface CreateBankAccountServiceResponse {
@@ -19,13 +18,11 @@ export class CreateBankAccountService {
     name,
     balance,
     userId,
-    accountId,
   }: CreateBankAccountServiceRequest): Promise<CreateBankAccountServiceResponse> {
     const bankAccount = await this.bankAccountsRepository.create({
       name,
       balance,
-      userId,
-      accountId,
+      userId
     });
 
     return {
