@@ -13,7 +13,7 @@ export async function create(
     const { name, balance } = createBankAccountValidator.parse(
       request.body,
     );
-    const { user_id } = request.auth;
+    const { userId } = request.auth;
 
     const bankAccountsRepository = new PrismaBankAccountsRepository();
     const useCase = new CreateBankAccountService(bankAccountsRepository);
@@ -21,7 +21,7 @@ export async function create(
     const { bankAccount } = await useCase.execute({
       name,
       balance,
-      userId: user_id,
+      userId,
     });
 
     return response.status(httpStatusCode.created).json({

@@ -11,9 +11,9 @@ export async function logout(
     const refreshTokensRepository = new PrismaRefreshTokensRepository();
     const useCaseLogout = new LogoutService(refreshTokensRepository);
 
-    const { user_id } = request.auth;
+    const { userId } = request.auth;
 
-    await useCaseLogout.execute({ userId: user_id });
+    await useCaseLogout.execute({ userId });
 
     return response.send();
   } catch (error) {
