@@ -2,71 +2,102 @@ import { Prisma } from '@prisma/client';
 
 import { prisma } from '@/lib/prisma';
 import {
-  ListTransactionsProps,
+  GetTransactionsRequest,
   TransactionsRepository,
 } from '@/repositories/transactions-repository';
 export class PrismaTransactionsRepository implements TransactionsRepository {
   async list({
+    qs,
     page,
-    query,
+    perPage,
     userId,
     accountId,
-    startDate,
-    endDate,
-  }: ListTransactionsProps) {
-    const transactions = await prisma.transaction.findMany({
+    // startDate,
+    // endDate,
+  }: GetTransactionsRequest) {
+    const query: Prisma.TransactionFindManyArgs = {
       where: {
-        description: {
-          contains: query,
-          mode: 'insensitive',
-        },
-        ...(userId && {
-          user_id: userId,
+        ...(qs && {
+          description: {
+            contains: qs,
+            mode: 'insensitive',
+          },
         }),
         ...(accountId && {
-          account_id: accountId,
+          accountId: accountId,
         }),
-        ...(startDate &&
-          endDate && {
-            date: {
-              gte: startDate,
-              lte: endDate,
-            },
-          }),
+        ...(userId && {
+          userId: userId,
+        })
       },
-      include: {
-        category: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        bankAccount: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
-        fileOnTransactions: {
-          select: {
-            id: true,
-            fileId: true,
-            file: {
-              select: {
-                id: true,
-                contentType: true,
-                name: true,
-                originalName: true,
-              },
-            },
-          },
-        },
-      },
-      take: 20,
-      skip: (page - 1) * 20,
-    });
+    };
 
-    return transactions;
+    const [transactions, count] = await prisma.$transaction([
+      prisma.transaction.findMany({...query, take: perPage,
+        skip: (page - 1) * perPage }),
+      prisma.transaction.count({ where: query.where })
+    ]);
+
+    
+    // const transactions = await prisma.transaction.findMany({
+    //   where: {
+    //     description: {
+    //       contains: qs,
+    //       mode: 'insensitive',
+    //     },
+    //     ...(userId && {
+    //       user_id: userId,
+    //     }),
+    //     ...(accountId && {
+    //       account_id: accountId,
+    //     }),
+    //     ...(startDate &&
+    //       endDate && {
+    //         date: {
+    //           gte: startDate,
+    //           lte: endDate,
+    //         },
+    //       }),
+    //   },
+    //   include: {
+    //     category: {
+    //       select: {
+    //         id: true,
+    //         name: true,
+    //       },
+    //     },
+    //     bankAccount: {
+    //       select: {
+    //         id: true,
+    //         name: true,
+    //       },
+    //     },
+    //     fileOnTransactions: {
+    //       select: {
+    //         id: true,
+    //         fileId: true,
+    //         file: {
+    //           select: {
+    //             id: true,
+    //             contentType: true,
+    //             name: true,
+    //             originalName: true,
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    //   take: 20,
+    //   skip: (page - 1) * 20,
+    // });
+
+    return {
+      data: transactions,
+      meta: {
+        total: count,
+        lastPage: Math.ceil(count / perPage)
+      }
+    };
   }
 
   async findById(id: string) {

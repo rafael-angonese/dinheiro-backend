@@ -1,11 +1,13 @@
+import { Meta } from '@/@types/meta';
 import {
-  ListTransactions,
   TransactionsRepository,
 } from '@/repositories/transactions-repository';
+import { Transaction } from '@prisma/client';
 
 interface ListTransactionsServiceRequest {
-  query?: string;
+  qs?: string;
   page: number;
+  perPage: number;
   userId?: string;
   accountId?: string;
   startDate?: Date;
@@ -13,23 +15,26 @@ interface ListTransactionsServiceRequest {
 }
 
 interface ListTransactionsServiceResponse {
-  transactions: ListTransactions[];
+  data: Transaction[];
+  meta: Meta;
 }
 
 export class ListTransactionsService {
   constructor(private transactionsRepository: TransactionsRepository) {}
 
   async execute({
+    qs,
     page,
-    query = '',
+    perPage,
     userId,
     accountId,
     startDate,
     endDate,
   }: ListTransactionsServiceRequest): Promise<ListTransactionsServiceResponse> {
-    const transactions = await this.transactionsRepository.list({
-      query,
+    const { data, meta }  = await this.transactionsRepository.list({
+      qs,
       page,
+      perPage,
       userId,
       accountId,
       startDate,
@@ -37,7 +42,8 @@ export class ListTransactionsService {
     });
 
     return {
-      transactions,
+      data,
+      meta
     };
   }
 }

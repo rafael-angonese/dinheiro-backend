@@ -9,15 +9,16 @@ export async function list(
   next: NextFunction,
 ) {
   try {
-    const { q, page, accountId, userId, startDate, endDate } =
+    const { qs, page, perPage, accountId, userId, startDate, endDate } =
       listTransactionsValidator.parse(request.query);
 
     const transactionsRepository = new PrismaTransactionsRepository();
     const useCase = new ListTransactionsService(transactionsRepository);
 
-    const { transactions } = await useCase.execute({
-      query: q,
+    const { data, meta } = await useCase.execute({
+      qs,
       page,
+      perPage,
       accountId,
       userId,
       startDate,
@@ -25,7 +26,8 @@ export async function list(
     });
 
     return response.json({
-      data: transactions,
+      data,
+      meta,
     });
   } catch (error) {
     next(error);

@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "CategoryType" AS ENUM ('CREDIT', 'DEBIT');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -53,7 +56,7 @@ CREATE TABLE "bank_accounts" (
 CREATE TABLE "categories" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "type" TEXT NOT NULL,
+    "type" "CategoryType" NOT NULL DEFAULT E'CREDIT',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -71,6 +74,7 @@ CREATE TABLE "transactions" (
     "userId" TEXT NOT NULL,
     "account_id" TEXT NOT NULL,
     "bank_account_id" TEXT NOT NULL,
+    "source_account_id" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -80,12 +84,8 @@ CREATE TABLE "transactions" (
 -- CreateTable
 CREATE TABLE "files" (
     "id" TEXT NOT NULL,
-    "key" TEXT NOT NULL,
-    "model" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "original_name" TEXT,
-    "bucket" TEXT NOT NULL,
-    "url" TEXT NOT NULL,
     "size" DOUBLE PRECISION NOT NULL,
     "content_type" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -95,14 +95,14 @@ CREATE TABLE "files" (
 );
 
 -- CreateTable
-CREATE TABLE "files_on_transactions" (
+CREATE TABLE "transaction_files" (
     "id" TEXT NOT NULL,
     "file_id" TEXT NOT NULL,
     "transaction_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "files_on_transactions_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "transaction_files_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -130,10 +130,13 @@ ALTER TABLE "transactions" ADD CONSTRAINT "transactions_account_id_fkey" FOREIGN
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_bank_account_id_fkey" FOREIGN KEY ("bank_account_id") REFERENCES "bank_accounts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "transactions" ADD CONSTRAINT "transactions_source_account_id_fkey" FOREIGN KEY ("source_account_id") REFERENCES "bank_accounts"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "transactions" ADD CONSTRAINT "transactions_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "files_on_transactions" ADD CONSTRAINT "files_on_transactions_transaction_id_fkey" FOREIGN KEY ("transaction_id") REFERENCES "transactions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "transaction_files" ADD CONSTRAINT "transaction_files_transaction_id_fkey" FOREIGN KEY ("transaction_id") REFERENCES "transactions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "files_on_transactions" ADD CONSTRAINT "files_on_transactions_file_id_fkey" FOREIGN KEY ("file_id") REFERENCES "files"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "transaction_files" ADD CONSTRAINT "transaction_files_file_id_fkey" FOREIGN KEY ("file_id") REFERENCES "files"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

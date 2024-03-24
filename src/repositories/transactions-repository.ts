@@ -1,47 +1,24 @@
+import { Meta } from '@/@types/meta';
 import { Prisma, Transaction } from '@prisma/client';
 
-export interface ListTransactionsProps {
+export interface GetTransactionsRequest {
+  qs?: string;
   page: number;
-  query?: string;
-  userId?: string;
+  perPage: number;
+  userId?: string
   accountId?: string;
   startDate?: Date;
   endDate?: Date;
+ 
 }
 
-export type ListTransactions = Prisma.TransactionGetPayload<{
-  include: {
-    category: {
-      select: {
-        id: true;
-        name: true;
-      };
-    };
-    bankAccount: {
-      select: {
-        id: true;
-        name: true;
-      };
-    };
-    fileOnTransactions: {
-      select: {
-        id: true;
-        fileId: true;
-        file: {
-          select: {
-            id: true;
-            contentType: true;
-            name: true;
-            originalName: true;
-          };
-        };
-      };
-    };
-  };
-}>;
+export interface GetTransactionsResponse {
+  data: Transaction[]
+  meta: Meta
+}
 
 export interface TransactionsRepository {
-  list(props: ListTransactionsProps): Promise<ListTransactions[]>;
+  list(props: GetTransactionsRequest): Promise<GetTransactionsResponse>;
   findById(id: string): Promise<Transaction | null>;
   create(data: Prisma.TransactionUncheckedCreateInput): Promise<Transaction>;
   update(

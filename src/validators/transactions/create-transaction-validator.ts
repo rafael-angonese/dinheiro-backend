@@ -2,7 +2,7 @@ import { TransactionType } from '@/constants/transaction-type';
 import { z } from 'zod';
 
 export const createTransactionValidator = z.object({
-  date: z.date(),
+  date: z.coerce.date(),
   description: z.string(),
   amount: z.number(),
   type: z.nativeEnum(TransactionType),
