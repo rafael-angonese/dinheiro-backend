@@ -6,63 +6,24 @@ import { generateHash } from '@/lib/crypto';
 async function main() {
 
   const password = await generateHash('12345678')
-  const adminUser = await prismaClient.user.upsert({
+  await prismaClient.user.upsert({
     where: { email: 'admin@admin.com' },
     update: {},
     create: {
-      name: 'Admin',
+      name: 'Admin PF',
       email: 'admin@admin.com',
-      role: 'admin',
       password: password
     },
   })
 
-  await prismaClient.account.create({
-    data: {
-      name: 'Planegazers',
-      description: 'conta PJ',
-      userId: adminUser.id,
-      bankAccounts: {
-        createMany: {
-          data: [
-            {
-              name: 'Nubank',
-              balance: 0,
-              userId: adminUser.id
-            },
-            {
-              name: 'Inter',
-              balance: 0,
-              userId: adminUser.id
-            }
-          ]
-        }
-      }
-    }
-  })
-
-  await prismaClient.account.create({
-    data: {
-      name: 'Rafael Angonese',
-      description: 'conta PF',
-      userId: adminUser.id,
-      bankAccounts: {
-        createMany: {
-          data: [
-            {
-              name: 'Nubank',
-              balance: 0,
-              userId: adminUser.id
-            },
-            {
-              name: 'Inter',
-              balance: 0,
-              userId: adminUser.id
-            }
-          ]
-        }
-      }
-    }
+  await prismaClient.user.upsert({
+    where: { email: 'adminpj@adminpj.com' },
+    update: {},
+    create: {
+      name: 'Admin PJ',
+      email: 'adminpj@adminpj.com',
+      password: password
+    },
   })
 
   await prismaClient.category.createMany({
