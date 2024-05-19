@@ -50,7 +50,6 @@ model BankAccount {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   transactions       Transaction[]
-  sourceTransactions Transaction[] @relation(name: "sourceAccount")
 
   @@map("bank_accounts")
 }
@@ -87,9 +86,6 @@ model Transaction {
 
   bankAccountId String      @map("bank_account_id")
   bankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
-
-  sourceAccount   BankAccount? @relation(name: "sourceAccount", fields: [sourceAccountId], references: [id])
-  sourceAccountId String?      @map("source_account_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
