@@ -9,14 +9,17 @@ export async function createPresignedUrl(
   next: NextFunction,
 ) {
   try {
-    const { objectKey } = presignedUrlValidator.parse(request.query);
+    const { fileExtension } = presignedUrlValidator.parse(request.query);
 
     const useCase = new CreatePresignedUrlService();
 
-    const { presignedUrl } = await useCase.execute({ objectKey });
+    const { presignedUrl, fileKey } = await useCase.execute({ fileExtension });
 
     return response.status(httpStatusCode.created).json({
-      data: presignedUrl,
+      data: {
+        presignedUrl,
+        fileKey
+      },
     });
   } catch (error) {
     next(error);

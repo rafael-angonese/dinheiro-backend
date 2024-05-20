@@ -1,25 +1,29 @@
 import { s3Client } from '@/lib/s3';
-import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { v4 as uuidv4 } from 'uuid';
 
 interface CreatePresignedUrlServiceRequest {
-  objectKey: string;
+  fileExtension: string;
 }
 
 interface CreatePresignedUrlServiceResponse {
   presignedUrl: string;
+  fileKey: string;
 }
 
 export class CreatePresignedUrlService {
   constructor() {}
 
   async execute({
-    objectKey
+    fileExtension
   }: CreatePresignedUrlServiceRequest): Promise<CreatePresignedUrlServiceResponse> {
     
-    const command = new GetObjectCommand({
+    const fileKey = `${uuidv4()}.${fileExtension}`
+
+    const command = new PutObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET,
-      Key: objectKey,
+      Key: fileKey,
     });
 
     const expiresInMinutes = 3 * 60 // 3 minutos
@@ -28,6 +32,7 @@ export class CreatePresignedUrlService {
 
     return {
       presignedUrl,
+      fileKey,
     };
   }
 }
