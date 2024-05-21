@@ -1,3 +1,4 @@
+import { prismaClient } from '@/database/prismaClient';
 import { TransactionsRepository } from '@/repositories/transactions-repository';
 import { Transaction } from '@prisma/client';
 
@@ -9,6 +10,12 @@ interface CreateTransactionServiceRequest {
   categoryId: string;
   userId: string;
   bankAccountId: string;
+  files?: {
+    contentType: string;
+    name: string;
+    originalName: string;
+    size: number;
+  }[];
 }
 
 interface CreateTransactionServiceResponse {
@@ -16,7 +23,7 @@ interface CreateTransactionServiceResponse {
 }
 
 export class CreateTransactionService {
-  constructor(private transactionsRepository: TransactionsRepository) {}
+  constructor(private transactionsRepository: TransactionsRepository) { }
 
   async execute({
     date,
@@ -26,6 +33,7 @@ export class CreateTransactionService {
     categoryId,
     userId,
     bankAccountId,
+    files,
   }: CreateTransactionServiceRequest): Promise<CreateTransactionServiceResponse> {
     const transaction = await this.transactionsRepository.create({
       date,
@@ -36,6 +44,23 @@ export class CreateTransactionService {
       userId,
       bankAccountId,
     });
+
+    if (files) {
+      for (const file of files) {
+       const createdFile = await prismaClient.file.create({
+          data: {
+            ...file
+          }
+        });
+
+        await prismaClient.transactionFiles.create({
+          data: {
+            fileId: createdFile.id,
+            transactionId: transaction.id,
+          }
+        });
+      }
+    }
 
     return {
       transaction,

@@ -21,6 +21,16 @@ export interface GetTransactionsResponse {
       id: string;
       name: string;
     };
+    transactionFiles: {
+      id: string;
+      fileId: string;
+      file: {
+        id: string;
+        name: string;
+        contentType: string;
+        originalName: string | null;
+      };
+    }[];
   })[]
   meta: Meta
 }

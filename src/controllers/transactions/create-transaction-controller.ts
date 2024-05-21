@@ -17,6 +17,7 @@ export async function create(
       type,
       categoryId,
       bankAccountId,
+      files,
     } = createTransactionValidator.parse(request.body);
 
     const { userId } = request.auth;
@@ -32,6 +33,7 @@ export async function create(
       categoryId,
       userId,
       bankAccountId,
+      files,
     });
 
     return response.status(httpStatusCode.created).json({

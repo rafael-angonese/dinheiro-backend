@@ -42,60 +42,24 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
             name: true,
           },
         },
+        transactionFiles: {
+          select: {
+            id: true,
+            fileId: true,
+            file: {
+              select: {
+                id: true,
+                contentType: true,
+                name: true,
+                originalName: true,
+              },
+            },
+          }
+        },
       },
       skip: (page - 1) * perPage }),
       prisma.transaction.count({ where: query.where })
     ]);
-
-    
-    // const transactions = await prisma.transaction.findMany({
-    //   where: {
-    //     description: {
-    //       contains: qs,
-    //       mode: 'insensitive',
-    //     },
-    //     ...(userId && {
-    //       user_id: userId,
-    //     }),
-    //     ...(startDate &&
-    //       endDate && {
-    //         date: {
-    //           gte: startDate,
-    //           lte: endDate,
-    //         },
-    //       }),
-    //   },
-    //   include: {
-    //     category: {
-    //       select: {
-    //         id: true,
-    //         name: true,
-    //       },
-    //     },
-    //     bankAccount: {
-    //       select: {
-    //         id: true,
-    //         name: true,
-    //       },
-    //     },
-    //     fileOnTransactions: {
-    //       select: {
-    //         id: true,
-    //         fileId: true,
-    //         file: {
-    //           select: {
-    //             id: true,
-    //             contentType: true,
-    //             name: true,
-    //             originalName: true,
-    //           },
-    //         },
-    //       },
-    //     },
-    //   },
-    //   take: 20,
-    //   skip: (page - 1) * 20,
-    // });
 
     return {
       data: transactions,
