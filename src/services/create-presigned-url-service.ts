@@ -19,7 +19,7 @@ export class CreatePresignedUrlService {
     fileExtension
   }: CreatePresignedUrlServiceRequest): Promise<CreatePresignedUrlServiceResponse> {
     
-    const fileKey = `${uuidv4()}.${fileExtension}`
+    const fileKey = `dev/${uuidv4()}.${fileExtension}`
 
     const command = new PutObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET,

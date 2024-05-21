@@ -35,7 +35,6 @@ export class CreateTransactionService {
       categoryId,
       userId,
       bankAccountId,
-      sourceAccountId: null,
     });
 
     return {
