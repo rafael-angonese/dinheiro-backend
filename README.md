@@ -101,6 +101,10 @@ $ openssl genrsa -out private-key.pem 2048
 
 # gerar a chave pública com base na chave privada
 $ openssl rsa -in private-key.pem -pubout -out public-key.pem
+
+# gerar um secret
+$ openssl rand -hex 32
+
 ```
 Para incluir as chaves no `.env` do projeto deverá ser substituido as quebras de linhas por `\n`
 

@@ -1,4 +1,5 @@
 import { s3Client } from '@/lib/s3';
+import { isDev } from '@/utils/isDev';
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,7 +20,7 @@ export class CreatePresignedUrlService {
     fileExtension
   }: CreatePresignedUrlServiceRequest): Promise<CreatePresignedUrlServiceResponse> {
     
-    const fileKey = `dev/${uuidv4()}.${fileExtension}`
+    const fileKey = `${isDev() ? 'dev' : 'prod'}/${uuidv4()}.${fileExtension}`
 
     const command = new PutObjectCommand({
       Bucket: process.env.AWS_S3_BUCKET,
