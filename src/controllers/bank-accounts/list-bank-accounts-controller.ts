@@ -13,10 +13,13 @@ export async function list(
       request.query,
     );
 
+    const { userId } = request.auth;
+
     const bankAccountsRepository = new PrismaBankAccountsRepository();
     const useCase = new ListBankAccountsService(bankAccountsRepository);
 
     const { data, meta } = await useCase.execute({
+      userId,
       qs,
       page,
       perPage

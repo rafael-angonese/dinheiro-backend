@@ -5,12 +5,14 @@ import { BankAccountsRepository, GetBankAccountsRequest } from '@/repositories/b
 
 export class PrismaBankAccountsRepository implements BankAccountsRepository {
   async list({
+    userId,
     qs,
     page,
     perPage,
   }: GetBankAccountsRequest) {
     const query: Prisma.BankAccountFindManyArgs = {
       where: {
+        userId,
         ...(qs && {
           name: {
             contains: qs,

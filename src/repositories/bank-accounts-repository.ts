@@ -2,6 +2,7 @@ import { Meta } from '@/@types/meta';
 import { BankAccount, Prisma } from '@prisma/client';
 
 export interface GetBankAccountsRequest {
+  userId: string;
   qs?: string;
   page: number;
   perPage: number;
