@@ -5,7 +5,8 @@ export interface GetTransactionsRequest {
   qs?: string;
   page: number;
   perPage: number;
-  userId?: string
+  userId: string
+  bankAccountId?: string;
   startDate?: Date;
   endDate?: Date;
 

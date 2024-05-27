@@ -8,7 +8,8 @@ interface ListTransactionsServiceRequest {
   qs?: string;
   page: number;
   perPage: number;
-  userId?: string;
+  userId: string;
+  bankAccountId?: string;
   startDate?: Date;
   endDate?: Date;
 }
@@ -45,6 +46,7 @@ export class ListTransactionsService {
     page,
     perPage,
     userId,
+    bankAccountId,
     startDate,
     endDate,
   }: ListTransactionsServiceRequest): Promise<ListTransactionsServiceResponse> {
@@ -53,6 +55,7 @@ export class ListTransactionsService {
       page,
       perPage,
       userId,
+      bankAccountId,
       startDate,
       endDate,
     });

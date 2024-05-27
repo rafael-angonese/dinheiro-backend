@@ -11,6 +11,7 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
     page,
     perPage,
     userId,
+    bankAccountId,
     // startDate,
     // endDate,
   }: GetTransactionsRequest) {
@@ -24,6 +25,9 @@ export class PrismaTransactionsRepository implements TransactionsRepository {
         }),
         ...(userId && {
           userId: userId,
+        }),
+        ...(bankAccountId && {
+          bankAccountId: bankAccountId,
         })
       },
     };
